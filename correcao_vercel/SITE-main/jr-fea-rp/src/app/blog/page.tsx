@@ -1,15 +1,5 @@
-import Card from '@/components/Card';
 import PersonInfoSection2 from "@/components/introducao_5"
-import CarroselNoticias from '@/components/CarroselNoticias'
-import CartoesBlog from "@/components/CartoesBlog"
 import CartoesBlog2 from "@/components/CartoesBlog2"
-import CartaoTransicao from "@/components/CartaoTransicao"
-import CartaoMascarado from "@/components/CartaoMascarado"
-import { CACHE_ONE_YEAR } from "next/dist/lib/constants"
-import PostList from "@/components/PostLista";
-import DeletePost from "@/components/DeletarPost";
-import TesteBlog from "@/components/testeBlog";
-import ManagePosts from "@/components/EditarPost";
 
 
 export default function Home() {

@@ -1,10 +1,6 @@
-import CasesCarrosel from '@/components/CasesCarrosel';
-import CardCase from '@/components/CardCase';
-import { CarrosselClientesCases } from '@/components/CarrosselClientesCases';
 import InfoSection from '@/components/introducao_2';
 import SolucoesInovadoras from '@/components/ListaCases';
 import NoticiasParceiros from '@/components/CasesLink';
-import BlurFade from "@/components/ui/blur-fade";
 
 const cases = [
   {
