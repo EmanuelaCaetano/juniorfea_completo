@@ -1,0 +1,80 @@
+import Image from 'next/image';
+import { CarrosselImages } from '../CarrosselImagens';
+
+const images = [
+  {
+    img:
+      "/99logo.jpeg",
+    name: "Logo 99 Taxi",
+  },
+  {
+    img:
+      "/Danone-logo.png",
+    name: "Logo Danone",
+  },
+  {
+    img:
+      "/Coca-logo.png",
+    name: "Logo Coca Cola",
+  },
+  {
+    img:"/BFC-logo.png",
+    name: "Logo Botafogo de Ribeirão Preto",
+  },
+  // {
+  //   quote:
+  //     "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+  //   name: "Herman Melville",
+  //   title: "Moby-Dick",
+  // },
+];
+
+export default function CarrosselClientes(){
+
+  const images = [
+    {
+      img:
+        "/99logo.jpeg",
+      name: "Logo 99 Taxi",
+    },
+    {
+      img:
+        "/danone.png",
+      name: "Logo Danone",
+    },
+    {
+      img:
+        "/Coca-logo.png",
+      name: "Logo Coca Cola",
+    },
+    {
+      img:"/BFC-logo.png",
+      name: "Logo Botafogo de Ribeirão Preto",
+    },
+    {
+      img:
+        "/guarana-logo.png",
+      name: "Logo Guarana",
+    },
+  ];
+
+    return (
+      <>
+        
+    <div className="h-[40rem] pb-16 rounded-md flex flex-col antialiased bg-white dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+        <div className="scroller text-center pb-9 bg-white w-full  ">
+          <h2 className={"text-corPrimaria text-4xl pb-16 font-bold drop-shadow-lg"} >Clientes que confiam no nosso trabalho</h2>
+          <div className="h-60 pt-24  flex justify-around gap-4 items-center bg-corPrimaria ">
+          <CarrosselImages
+          items={images}
+          direction="right"
+          speed="normal" 
+          pauseOnHover={false}
+          />
+            
+          </div>
+        </div>
+    </div>
+     </> 
+    )
+}

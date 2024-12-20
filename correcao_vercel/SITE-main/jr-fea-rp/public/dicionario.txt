@@ -1,0 +1,215 @@
+    leftTitle: "",
+    leftContent: "",
+    centerTitle: "",
+    centerContent: "",
+    rightTitle: "",
+    rightContent: ""
+
+
+const modelosoluções: SolucaoInfo[] = [
+  {
+    titulo: "Pesquisa de Negócios",
+    descricao: "Identifique oportunidades no mercado para se diferenciar a partir da ideias de novos produtos ou serviços, entender a viabilidade de mercado e estudar a possibilidade de ampliar o segmento ou nicho de atuação! Veja os benefícios:",
+    bloco1: "Tomada de decisão mais segura!"
+    descricao:"Uma escolha correta do aumentar significativamente o desempenho de uma empresa. Ao tomar decisões que vão impactar o dia a dia do seu negócio, é preciso reunir dados que te ajudem nessa decisão."
+    bloco2: "Identificar oportunidades e dominar o potencial do mercado"
+    descricao: "Com dados concretos sobre as necessidades do mercado é possível estimar a potencialidade do mercado local e seu entorno é um indicador seguro da demanda local por seus produtos. Assim, será possível desenvolver produtos e serviços que realmente agradem ao público."
+    bloco3: "Pontos fortes e fracos em relação aos demais"
+    descricao:"Excelente ferramenta para monitorar a sua concorrência e saber onde ela está localizada, tudo que é indispensável para a prosperidade de um negócio!"
+    card1: "Preço Acessível"
+    descricao: "Júnior FEA-RP é uma empresa de consultoria sem fins lucrativos e com custos abaixo do mercado. Dessa forma, entregamos projetos de qualidade com preços mais acessíveis. "
+    card2: "Desenvolvimento"
+    descricao: "Ajudamos nossos clientes com conhecimentos técnicos e teóricos sobre gestão, visando o apoio ao empreendedorismo e à inovação."
+    card3: "Incentivo"
+    descricao: "Acreditamos no potencial de cada empresa e cada cliente. Além de produzirmos soluções, fazemos com que eles também acreditem em seus sonhos e busquem realizá-los."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Plano de Satisfação",
+    descricao: "Identifique oportunidades no mercado para se diferenciar a partir da ideias de novos produtos ou serviços, entender a viabilidade de mercado e estudar a possibilidade de ampliar o segmento ou nicho de atuação!",
+    bloco1: "O que é uma pesquisa de satisfação"
+    descricao: "A pesquisa de satisfação é uma das ferramentas mais importantes para as empresas, pois consiste em receber o feedback de seu público-alvo sobre o produto ou serviço oferecido. Desse modo, ela funciona como um canal direto entre o consumidor e a companhia."
+    titulo2:"Benefícios"
+    card1:"Melhores estratégias de Marketing"
+    descricao:"Basear-se nas opiniões dos clientes torna a estratégia mais assertiva, pois revela o que o público-alvo considera relevante."
+    card2:"Economia de Recursos"
+    descricao:"Identificar possíveis falhas e problemas com maior rapidez no produto ou serviço auxilia prevenções mais econômicas."
+    card3:"Fidelização e Confiança​"
+    descricao:"A pesquisa faz com que seu público expresse seus desejos e preferências, logo, ouvi-los pode auxiliar na fidelização e no reconhecimento."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Plano de Markenting",
+    descricao: "Te ajudamos na sua estratégica de mercado!"
+    bloco1: "O que é um plano de marketing"
+    descricao:"O plano de marketing tem como objetivo o estudo do mercado de atuação de uma empresa ou de um novo negócio. A partir dele é possível analisar o comportamento dos consumidores e dos concorrentes de um segmento. Dessa forma, auxilia na criação de estratégias para se diferenciar."
+    titulo2:"Benefícios"
+    card1:"Estudo de mercado"
+    descricao:"Quais são os fatores que interferem no seu segmento de mercado? Entender o mercado é fundamental para criar estratégias mais assertivas."
+    card2:"Pesquisa de Público-alvo"
+    descricao:"O que seu público-alvo procura? Quais são suas necessidades? Essa pesquisa auxilia na compreensão sobre o perfil dos dos seus consumidores."
+    card3:"Análise da Concorrência"
+    descricao:"Quem são os seus concorrentes diretos? As coletas de dados de concorrentes ajudam na criação de diferenciais competitivos."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Cliente Oculto",
+    descricao: "Saiba em quais pontos a experiência dos seus consumidores pode melhorar",
+    bloco1:"O que é um cliente oculto?"
+    descricao:"Cliente oculto é um cliente disfarçado para fazer uma compra e avaliar o processo de venda de um produto, o atendimento ao cliente e também o processo de entrega como um todo. O cliente oculto é a maneira mais certeira de analisar o processo de venda da sua empresa e de seus concorrentes."
+    bloco2:"Benefícios"
+    descricao:"O Cliente Oculto ofertado pela Júnior FEA-RP tem o objetivo de agregar ao seu negócio um recurso fundamental no mapeamento da jornada do consumidor.
+    Ao otimizar os processos da sua empresa, as consequências serão bastante vantajosas. Além de aumentar a satisfação do cliente, isso vai fortalecer a imagem da marca e gerar ainda mais resultados! 
+		Assim, esse projeto deve ser considerado um investimento para a empresa que busca não só melhorar processos de atendimento e venda, mas também assegurar vantagens competitivas no mercado. "
+    bloco3: "Evite erros como:"
+    descricao:"Não cumprir com as exigências da avaliação;
+		Perder o foco na missão de cliente;
+		Não manter a descrição;
+		Oferecer detalhes vagos nas suas conclusões."
+    card1: "Diferenciação da Concorrência"
+    descricao: "Oferta de um diferencial para empresas que buscam mudanças e vantagens competitivas aos demais."
+    card2: "Ações mais assertivas"
+    descricao:"Permite que o gestor tome as providências para corrigir os erros no atendimento e oferecer treinamentos direcionados à correção dessas falhas."
+    card3: "Aumento da produtividade"
+    descricao:"Uma vez que foram corrigidas as falhas dos processos, os funcionários são instruídos de como fazer corretamente seu trabalho."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Plano de Negócio",
+    descricao: "Identifique oportunidades no mercado para se diferenciar a partir da ideias de novos produtos ou serviços, entender a viabilidade de mercado e estudar a possibilidade de ampliar o segmento ou nicho de atuação!",
+    bloco1:"O que é Plano de Negócio?"
+    descricao:"O plano de negócios envolve tudo o que é necessário para a abertura de um novo empreendimento, seja ele uma empresa ou a expansão de um negócio. Nesse sentido, é possível analisar os principais aspectos de estratégia, mercado, operação e projeções financeiras."
+    bloco2:"Benefícios"
+    descricao:"O plano de negócios ofertado pela Júnior FEA-RP proporciona aos gestores uma visão ampla do negócio em seus principais pilares de sustentação.
+		Portanto, possibilita o conhecimento do mercado de atuação e consolida uma visão da estrutura interna em termos de funcionamento e de estrutura da empresa.
+		Em síntese, é construída uma trajetória futura e presente de forma mais concreta, verificando os passos que a organização deve tomar para atingir seus objetivos financeiros e estratégicos."
+    bloco3:"Evite erros como:"
+    descricao:"Não ter objetivos claros;
+		Subestimar a concorrência;
+		Administrar os recursos financeiros de forma ineficiente;
+		Não demonstrar seus diferenciais competitivos;
+		Desconhecer o negócio."
+    card1:"Orientação e Visão de Mercado"
+    descricao:"Há demanda para esse novo negócio? Que serão seus clientes? O plano de negócio te ajuda a analizar o mercado e a se posicionar."
+    card2:"Análise de riscos e Oportunidades"
+    descricao:"Seu negócio será rentavel? Seu investimento vale à pena? Analizar os aspectos financeiros de um negócio antes de investir é essencial."
+    card3:"Estratégia e Planejamento"
+    descricao:"Qual será a missão do seu negócio? Quais os objetivos? O planejamento ajuda na construção estratégica e tomada de decisão."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Planejamento Estratégico",
+    descricao: "e ajudamos a potencializar sua jornada em direção ao sucesso!",
+    bloco1:"O que é Planejamento Estratégico?"
+    descricao:"O Planejamento Estratégico é uma ferramenta de gestão que mapeia o caminho para atingir objetivos em uma empresa. Ele funciona como um roteiro que determina onde a empresa está, aonde quer chegar e quais são as ações necessárias para cumprir essa jornada. "
+    bloco2:"Benefícios:"
+    descricao:"O Planejamento Estratégico ofertado pela Júnior FEA-RP proporciona aos gestores assertividade das ações da empresa até o bem-estar dos colaboradores.
+		Sendo assim, os proprietários possuem uma noção de como obter o melhor de qualquer cenário econômico, aumentando a previsibilidade de crescimento financeiro baseado em decisões estratégicas conscientes.
+		Entretanto, é importante ressaltar que o planejamento não elimina a possibilidade de ocorrer erros, ele auxilia na tomada de decisão. Caso eles ocorram, tendem a causar um menor impacto devido ao prévio preparo contra possíveis imprevistos."
+    bloco3:"Evite erros como:"
+    descricao:"Falhas na comunicação em diferentes níveis;
+		Falta de analise do mercado externo;
+		Definição de visão, missão e valores desalinhados;
+		Falta de prioridades e foco em estratégia;
+		Pouca clareza de objetivos de curto e longo prazo."
+    card1:"Senso de Direção e Prioridade"
+    descricao:"Onde sua empresa deseja estar daqui 6 anos? Quais são suas ações para alcançar esses objetivos."
+    card2: "Vantagem Competitiva"
+    descricao:"O planejamento auxilia do posicionamento de mercado e prepara a empresa para imprevistos internos e externos."
+    card3:"Propósito e Existência"
+    descricao:"Para que sua empresa existe? O que ela representa? A definição de missão. visão e valores é essencial para um negócios."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Análise de Custo e Precificação",
+    descricao: "A análise de custos e formação de preços é um estudo gerencial que visa analisar todos os custos e despesas envolvidos na produção de um produto ou na prestação de um serviço, para então calcular margem de contribuição e ponto de equilíbrio. A partir disso, esses dados serão confrontados com informações como preço, demanda e produção, objetivando a formação de preços mais competitivos e que possam gerar uma maior margem de lucro."
+    formulário: 
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Estrutura Financeira",
+    descricao: "Ajudamos na organização financeira da sua empresa!",
+    bloco1:"O que é Estruturação Financeira?"
+    descricao:"A Estruturação Financeira visa organizar a parte financeira das empresas, propondo a utilização de ferramentas gerenciais e planilhas para garantir a saúde financeira e continuidade do negócio. Fazem parte do escopo desse serviço a separação das contas jurídica e pessoal, criação de planilhas de Fluxo de Caixa, etc."
+    bloco2:"Benefícios:"
+    descricao:"A Estruturação Financeira ofertado pela Júnior FEA-RP proporciona a sua empresa otimização da área financeira, o que acarreta que todos os outros departamentos também sejam melhorados. 
+		A boa gestão financeira é uma ferramenta que acaba por definir muito sobre a sua empresa. Você pode estar lucrando, mas, se tiver uma má formação da área, acabará no vermelho.
+		Ter um bom controle dos gastos aliado a uma análise financeira profissional pode ser a diferença entre o sucesso e o fracasso do seu negócio."
+    bloco3:"Evite erros como:"
+    descricao:"Não analisar constantemente o desempenho da empresa;
+		Não especificar objetivos e metas;
+		Não separar contas pessoais das contas empresariais;
+		Não entender que o mercado é quem define o preço;
+		Não conhecer os detalhes de todas as operações."
+    card1:"Renovação das visões da empresa"
+    descricao:"A consultoria não só trará solução para os problemas financeiros, como também novas ideias e conhecimentos de outros casos."
+    card2:"Garantia de um Fluxo de Caixa Saudável"
+    descricao:"Com a estrutura financeira, você otimiza a entrada e saída de dinehiro do seu negócio, reduzindo custos indesejados."
+    card3:"Segurança nas Tomadas de Decisão"
+    descricao:"O processo de tomada de decisão. para ser assertivo exige uma analise de dados confiável. A estruturação auxilia nisso."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+  {
+    titulo: "Viabilidade Econômica",
+    descricao: "Identifique oportunidades no mercado para se diferenciar a partir da ideias de novos produtos ou serviços, entender a viabilidade de mercado e estudar a possibilidade de ampliar o segmento ou nicho de atuação!",
+    bloco1:"O que é Viabilidade Econômica?"
+    descricao:"A viabilidade econômica é um estudo que permite avaliar se um projeto é realizável ou não. A avaliação é feita com base nas análises realizadas sobre as projeções de fluxo de caixa, as quais possibilitam saber se o empreendimento irá gerar retorno ou não, qual será sua rentabilidade e em quanto tempo ele se pagará. "
+    bloco2:"Benefícios:"
+    descricao:"O projeto ofertado pela Júnior FEA-RP proporciona aos gestores uma maior segurança ao realizar um novo empreendimento. Isto, trazendo dados concretos que mostram se o projeto é viável.
+		Sendo assim, ao final do estudo nossos clientes saem com uma boa noção sobre o investimento inicial necessário, quando que esse investimento terá retorno e se o produto/serviço possui um mercado grande a ser explorado."
+    bloco3:"Evite erros como:"
+    descricao:"Não saber se há uma demanda real pelo seu produto;
+ 		Realizar seu investimento inicial de forma errada;
+ 		Não ter uma previsão de retorno precisa sobre investimento realizado."
+    card1:"Estudo de Mercado"
+    descricao:"Quais são os fatores que interferem no seu segmento de mercado? Entender o mercado é fundamental para criar estratégias assertivas."
+    card2:"Análise de Concorrência"
+    descricao:"Quem são os seus concorrentes diretos? As coletas de dados de concorrentes ajudam na criação de diferenciais competitivos."
+    card3:"Pesquisa de Público"
+    descricao:"O que seu público-alvo procura? Quais são suas necessidades? Essa pesquisa auxilia na compreensão sobre o perfil dos seus consumidores."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  {
+    titulo: "Mapeamento de Processos",
+    descricao: "Te ajudamos na estruturação de processos mais claros!",
+    bloco1:"O que é Mapeamento de Processos?"
+    descricao:"O mapeamento de processos é uma ferramenta utilizada para identificar as etapas, fluxos, recursos e objetivos de um ou mais processos de determinada organização. Além disso, o mapeamento pode ser utilizado para apresentar as partes envolvidas no processo em estudo e no detalhamento das atividades, entradas e saídas do mesmo. "
+    bloco2:"Benefícios"
+    descricao:"O mapeamento de processos ofertado pela Júnior FEA-RP proporciona aos gestores uma visão prática e clara do funcionamento de processos.
+		Nesse sentido, auxilia na identificação de problemas e processos a serem melhorados.
+		Ademais, o mapeamento de processos ajuda nas capacitações da empresa, na realização das tarefas e na comunicação entre os processos, áreas e equipes."
+    bloco3:"Evite erros como:"
+    descricao:"Processos confusos;
+		Gargalos ofuscados;
+		Pouco controle;
+		Alta rotatividade;
+		Falta de comunicação."
+    formulario:
+    card1:"Padronização e Aperfeiçoamento de Processos"
+    descricao:"O mapeamento busca a padronização de processos para manter o nível de qualidade. Ele ajuda a desenvolver formas de execução otimizada com uma melhor gestão de recursos."
+    card2:"Gestão do conhecimento e documentação"
+    descricao:"Você tem um funcionário que conhece bem um processo, mas imagine que amanhã ele se desligará da sua empresa, você tem esse conhecimento registrado em algum lugar?"
+    card3:"Identificação de problemas e gargalos"
+    descricao:"Geriri processos é uma tarefa dificil, logo gerir processos desorganizados faz co, que os gestores não consigam detectar falhas e gargalos que muitas vezes são despercebidos, dificultando a gestão."
+    fechamento: "Ainda está com dúvidas? Fale com um consultor!"
+    descricao: "Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!"
+    botao: "Faça um diagnóstico gratuito!"
+  },
+];
