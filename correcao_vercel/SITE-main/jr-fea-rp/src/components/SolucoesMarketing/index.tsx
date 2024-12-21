@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaSearch } from "react-icons/fa";
 import { GoGraph } from "react-icons/go";
-import { FaCalendar } from "react-icons/fa";
+// import { FaCalendar } from "react-icons/fa";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import Image from 'next/image';
 import Image1 from '../../../public/marketing.jpg';
-import BlurFade from "../ui/blur-fade";
+// import BlurFade from "../ui/blur-fade";
 
 interface SolucaoInfo {
   titulo: string;
