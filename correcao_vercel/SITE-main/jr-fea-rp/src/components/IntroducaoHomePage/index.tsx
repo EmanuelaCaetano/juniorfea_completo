@@ -7,12 +7,11 @@ import LetterPullup from "@/components/ui/letter-pullup"
 
 interface IntroducaoProps {
   imgPath: string;
-  pageTitle: string;
   subTitle: string;
   context: string;
 }
 
-const IntroducaoHomePage: React.FC<IntroducaoProps> = ({ imgPath, pageTitle,subTitle, context}) => {
+const IntroducaoHomePage: React.FC<IntroducaoProps> = ({ imgPath,subTitle, context}) => {
   return (
     <>
 <div className="bg-corPrimaria w-full pb-4 rounded-b-lg shadow-lg h-[800px]">

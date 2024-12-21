@@ -9,7 +9,7 @@ import { setCookie } from "cookies-next"; // Para armazenar o token em um cookie
 const LoginBox = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [user, setUser] = useState<User | null>(null);
 
   const router = useRouter(); // Instância do roteador do Next.js

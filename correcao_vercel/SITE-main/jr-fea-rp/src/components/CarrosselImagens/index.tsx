@@ -9,7 +9,7 @@ export const CarrosselImages = ({
   direction = "left",
   speed = "fast",
   pauseOnHover = false,
-  className,
+  // className,
 }: {
   items: {
     name: string;
@@ -18,7 +18,7 @@ export const CarrosselImages = ({
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
   pauseOnHover?: boolean;
-  className?: string;
+  // className?: string;
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);
@@ -84,7 +84,7 @@ export const CarrosselImages = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item, idx) => (
+        {items.map((item/*, idx*/) => (
           <li
             className="bg-orange-50 w-[350px] relative rounded-2xl drop-shadow-2xl shadow-black flex-shrink-0 border-slate-700 px-8 py-6 md:w-[200px]"
             style={{

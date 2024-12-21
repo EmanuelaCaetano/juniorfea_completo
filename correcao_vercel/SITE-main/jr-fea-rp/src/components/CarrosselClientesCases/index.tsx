@@ -86,7 +86,7 @@ export const CarrosselClientesCases = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item, idx) => (
+        {items.map((item/*, idx*/) => (
           <li
             className="hover:scale-110 trasition duration-200 ease-in-out bg-orange-50 w-[350px] relative rounded-2xl drop-shadow-2xl shadow-black flex-shrink-0 border-slate-700 px-8 py-6 "
             style={{
