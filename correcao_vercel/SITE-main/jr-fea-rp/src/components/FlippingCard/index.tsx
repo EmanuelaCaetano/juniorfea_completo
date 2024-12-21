@@ -5,8 +5,8 @@ import { motion } from 'framer-motion'
 
 // Definindo as interfaces para as props
 interface CardContent {
-  title: string;
-  image: string;
+  title?: string;
+  image?: string;
   text?: string;
 }
 
