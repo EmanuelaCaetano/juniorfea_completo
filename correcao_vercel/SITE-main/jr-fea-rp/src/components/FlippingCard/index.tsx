@@ -3,7 +3,19 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-const FlippingCard = ({ frontContent, backContent }) => {
+// Definindo as interfaces para as props
+interface CardContent {
+  title: string;
+  image: string;
+  text?: string;
+}
+
+interface FlippingCardProps {
+  frontContent: CardContent;
+  backContent: CardContent;
+}
+
+const FlippingCard = ({ frontContent, backContent }: FlippingCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false);
   
@@ -64,5 +76,6 @@ const FlippingCard = ({ frontContent, backContent }) => {
 }
 
 export default FlippingCard
+
 
 
