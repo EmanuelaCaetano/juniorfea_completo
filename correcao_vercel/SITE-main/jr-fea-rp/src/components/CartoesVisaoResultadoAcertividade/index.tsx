@@ -13,21 +13,27 @@ interface cardProps {
 
 
 const CartoesVisaoResultadoAcertividade: React.FC<cardProps> = ({ leftTitle, leftContent, centerTitle, centerContent, rightTitle, rightContent }) => {
-    const cardsData = [
-        {
-          frontContent: { title: leftTitle, image: 'lupa.png' },
-          backContent: { image: 'precoBaixoVermelho.png', text: leftContent },
-        },
-        {
-          frontContent: { title: centerTitle, image: 'grafico.png'  },
-          backContent: { image: 'desenvolvimentoVermelho.png', text: centerContent },
-        },
-        {
-          frontContent: { title: rightTitle, image: 'alvo.png'  },
-          backContent: { image: 'incentivoVermelho.png', text: rightContent },
-        },
-        // Adicione mais cartões conforme necessário
-      ];
+  interface CardContent {
+    title: string;
+    image: string;
+    text?: string; // Adicione caso `text` não seja obrigatório
+  }
+  
+  const cardsData: { frontContent: CardContent; backContent: CardContent }[] = [
+    {
+      frontContent: { title: leftTitle, image: 'lupa.png' },
+      backContent: { title: "Back Title 1", image: 'precoBaixoVermelho.png', text: leftContent },
+    },
+    {
+      frontContent: { title: centerTitle, image: 'grafico.png' },
+      backContent: { title: "Back Title 2", image: 'desenvolvimentoVermelho.png', text: centerContent },
+    },
+    {
+      frontContent: { title: rightTitle, image: 'alvo.png' },
+      backContent: { title: "Back Title 3", image: 'incentivoVermelho.png', text: rightContent },
+    },
+  ];
+  
         return(
             <>
             <div className="w-full mt-40 mb-40 ">
