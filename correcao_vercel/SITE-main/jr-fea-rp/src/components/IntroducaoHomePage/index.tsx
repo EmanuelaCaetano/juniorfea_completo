@@ -7,6 +7,7 @@ import LetterPullup from "@/components/ui/letter-pullup"
 
 interface IntroducaoProps {
   imgPath: string;
+  pageTitle:string;
   subTitle: string;
   context: string;
 }
