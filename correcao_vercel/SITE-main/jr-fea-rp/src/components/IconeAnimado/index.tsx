@@ -1,5 +1,5 @@
 import { motion, Variants } from 'framer-motion';
-import { MotionProps } from 'framer-motion';
+//import { MotionProps } from 'framer-motion';
 
 interface AnimatedIconProps {
     icon: JSX.Element;
