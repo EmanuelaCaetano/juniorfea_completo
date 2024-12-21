@@ -1,21 +1,15 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { MotionProps } from 'framer-motion';
-
-interface Animation {
-    initial: MotionProps['initial'];
-    animate: MotionProps['animate'];
-    transition: MotionProps['transition'];
-}
 
 interface AnimatedIconProps {
     icon: JSX.Element;
-    animation: Animation;
+    animation: Variants; // Use Variants aqui diretamente
 }
 
 const AnimatedIcon: React.FC<AnimatedIconProps> = ({ icon, animation }) => {
     return (
         <motion.div
-            variants={animation}
+            variants={animation} // Agora 'animation' é do tipo Variants
             initial="initial"
             animate="animate"
             transition={{
