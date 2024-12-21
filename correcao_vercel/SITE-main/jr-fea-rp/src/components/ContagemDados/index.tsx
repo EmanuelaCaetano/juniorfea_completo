@@ -1,7 +1,7 @@
 'use client'
 
 import AnimacaoContagem from '@/components/ANIMACOES/AnimacaoContagem';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import React from 'react';
 

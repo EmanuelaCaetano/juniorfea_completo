@@ -1,4 +1,3 @@
-import Image from "next/image";
 import BlurFade from "../ui/blur-fade";
 import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
   

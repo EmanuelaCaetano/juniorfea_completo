@@ -1,15 +1,15 @@
 // import ExpandableCardDemo from "../blocks/expandable-card-demo-standard"
-import CartoesExpandiveis from "../CartoesExpandiveis";
+// import CartoesExpandiveis from "../CartoesExpandiveis";
 import { FaHandshake } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 // ... outras importações
 
-const cardVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
+// const cardVariants = {
+//   hidden: { opacity: 0 },
+//   visible: { opacity: 1 },
+// };
 
 export default function MissaoVisaoValores() {
   return (

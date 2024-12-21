@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import  db  from "@/lib/firebase-client"; // Importa o Firestore
-import { collection, addDoc } from "firebase/firestore"; // Métodos do Firestore
+// import  db  from "@/lib/firebase-client"; // Importa o Firestore
+// import { collection, addDoc } from "firebase/firestore"; // Métodos do Firestore
 
 const Formulario: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -82,7 +82,7 @@ const Formulario: React.FC = () => {
         throw new Error(`Erro na API: ${response.status} - ${errorText}`);
       }
   
-      const data = await response.json();
+      // const data = await response.json();
       alert("Formulário enviado com sucesso!");
       setFormData({
         nome: "",

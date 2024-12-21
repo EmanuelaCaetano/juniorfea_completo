@@ -52,7 +52,7 @@ const ManagePosts: React.FC = () => {
   };
 
   // Atualizar campos do post
-  const handleChange = (field: "title" | "image" | "subtitles", value: any) => {
+  const handleChange = (field: "title" | "image" | "subtitles", value: string | null | Subtitle[]) => {
     if (!selectedPost) return;
     setSelectedPost({ ...selectedPost, [field]: value });
   };
