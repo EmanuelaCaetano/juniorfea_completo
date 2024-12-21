@@ -107,7 +107,7 @@ export default function CartõesExpandiveis() {
         ) : null}
       </AnimatePresence>
       <ul className="max-w-2xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 items-start gap-8">
-        {cards.map((card, index) => (
+        {cards.map((card/*, index*/) => (
             // div responsavel pelo cartão pequeno
           <motion.div
             layoutId={`card-${card.title}-${id}`}

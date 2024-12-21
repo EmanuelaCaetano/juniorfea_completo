@@ -1,33 +1,4 @@
-import Image from 'next/image';
 import { CarrosselImages } from '../CarrosselImagens';
-
-/*const images = [
-  {
-    img:
-      "/99logo.jpeg",
-    name: "Logo 99 Taxi",
-  },
-  {
-    img:
-      "/Danone-logo.png",
-    name: "Logo Danone",
-  },
-  {
-    img:
-      "/Coca-logo.png",
-    name: "Logo Coca Cola",
-  },
-  {
-    img:"/BFC-logo.png",
-    name: "Logo Botafogo de Ribeirão Preto",
-  },
-  // {
-  //   quote:
-  //     "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-  //   name: "Herman Melville",
-  //   title: "Moby-Dick",
-  // },
-];*/
 
 export default function CarrosselClientes(){
 

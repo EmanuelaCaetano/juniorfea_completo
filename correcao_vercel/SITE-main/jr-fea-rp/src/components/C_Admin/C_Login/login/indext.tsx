@@ -35,7 +35,7 @@ const LoginBox = () => {
 
       // Redirecionar para /adminHome
       router.push("/admin/homeAdmin");
-    } catch (err) {
+    } catch (error) {
       setError("Falha no login. Verifique suas credenciais.");
     }
   };
