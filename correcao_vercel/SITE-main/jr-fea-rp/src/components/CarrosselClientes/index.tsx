@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { CarrosselImages } from '../CarrosselImagens';
 
-const images = [
+/*const images = [
   {
     img:
       "/99logo.jpeg",
@@ -27,7 +27,7 @@ const images = [
   //   name: "Herman Melville",
   //   title: "Moby-Dick",
   // },
-];
+];*/
 
 export default function CarrosselClientes(){
 

@@ -22,8 +22,7 @@ const DynamicBackground = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const pathname = usePathname();
-  if (pathname === "/teste") {
-    return (<div></div>)}
+  
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -32,6 +31,9 @@ const DynamicBackground = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  if (pathname === "/teste") {
+    return (<div></div>)}
 
   const currentImage = images[currentImageIndex];
 

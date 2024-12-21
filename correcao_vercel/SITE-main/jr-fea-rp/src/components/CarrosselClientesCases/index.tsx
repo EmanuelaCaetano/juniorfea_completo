@@ -9,7 +9,7 @@ export const CarrosselClientesCases = ({
   direction = "left",
   speed = "fast",
   pauseOnHover = false,
-  className,
+  //className,
 }: {
   items: {
     name: string;
@@ -20,7 +20,7 @@ export const CarrosselClientesCases = ({
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
   pauseOnHover?: boolean;
-  className?: string;
+  //className?: string;
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);

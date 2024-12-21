@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface TypingAnimationProps {
   texts: string[];
   duration?: number;
-  delayBetweenTexts?: number;
+  //delayBetweenTexts?: number;
   className?: string;
   loop: boolean;
 }
@@ -12,7 +12,7 @@ interface TypingAnimationProps {
 export function AnimacaoEscrita({
   texts,
   duration = 100,
-  delayBetweenTexts = 200,
+  //delayBetweenTexts = 200,
   className,
   loop = true,
 }: TypingAnimationProps) {
