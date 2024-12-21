@@ -13,7 +13,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter(); // Usado para redirecionamento
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null); // Referência para o menu
+  const menuRef = useRef<HTMLUListElement>(null); // Referência para o menu
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
