@@ -155,7 +155,7 @@ export default function Blog() {
               <Image
                 width={100}
                 height={100}
-                src={post.image}
+                src={post.image || "../../public/foguete.png"}
                 alt={post.title}
                 className="h-48 w-full rounded-lg object-cover"
               />
