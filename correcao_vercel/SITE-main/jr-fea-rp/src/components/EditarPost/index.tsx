@@ -3,11 +3,18 @@ import React, { useEffect, useState } from "react";
 import db from "../../utils/firestore";
 import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 
+// Definindo a interface Subtitle
+interface Subtitle {
+  id: number;
+  subtitle: string;
+  content: string;
+}
+
 interface Post {
   id: string;
   title: string;
   image: string | null;
-  subtitles: { id: number; subtitle: string; content: string }[];
+  subtitles: Subtitle[];
 }
 
 const ManagePosts: React.FC = () => {
@@ -144,40 +151,50 @@ const ManagePosts: React.FC = () => {
               </label>
               <input
                 type="text"
-                id={`subtitle-${item.id}`}
                 value={item.subtitle}
                 onChange={(e) => handleSubtitleChange(item.id, "subtitle", e.target.value)}
-                placeholder={`Digite o subtítulo ${index + 1}`}
-                className="w-full border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                id={`subtitle-${item.id}`}
+                placeholder="Digite o subtítulo"
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-
-              <label htmlFor={`content-${item.id}`} className="block mb-2 text-gray-700 font-medium">
-                Conteúdo {index + 1}
-              </label>
               <textarea
-                id={`content-${item.id}`}
                 value={item.content}
                 onChange={(e) => handleSubtitleChange(item.id, "content", e.target.value)}
-                placeholder={`Digite o conteúdo ${index + 1}`}
-                className="w-full min-h-64 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              ></textarea>
+                placeholder="Digite o conteúdo"
+                className="w-full border border-gray-300 rounded-md p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
             </div>
           ))}
 
-          {/* Botão para Salvar */}
-          <div className="mt-6 flex justify-between">
+          {/* Imagem */}
+          <div className="mb-6">
+            <label htmlFor="postImage" className="block mb-2 text-gray-700 font-medium">
+              Imagem
+            </label>
+            <input
+              type="text"
+              id="postImage"
+              value={selectedPost.image || ""}
+              onChange={(e) => handleChange("image", e.target.value)}
+              placeholder="URL da imagem"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Botões */}
+          <div className="flex justify-between mt-6">
             <button
               type="button"
               onClick={() => setSelectedPost(null)}
-              className="bg-white text-red-500 border-2 border-red-500 px-4 py-2 rounded-md hover:bg-gray-100 hover:text-red-700 transition"
+              className="px-4 py-2 bg-gray-300 text-white rounded-md hover:bg-gray-400"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="bg-red-500 text-white font-bold py-2 px-8 rounded-md hover:bg-red-600 transition"
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              Salvar Alterações
+              Salvar
             </button>
           </div>
         </form>
@@ -187,4 +204,5 @@ const ManagePosts: React.FC = () => {
 };
 
 export default ManagePosts;
+
 
