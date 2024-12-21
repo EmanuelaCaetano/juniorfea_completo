@@ -5,6 +5,7 @@ import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { use } from "react";
+import Image from "next/image";
 
 interface Subtitle {
   subtitle: string;
@@ -29,29 +30,28 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
   useEffect(() => {
     let isMounted = true;
     window.scrollTo(0, 0);
-    // Redefinir estados antes de buscar novos dados
     setPost(null);
     setLoading(true);
-  
+
     const fetchPosts = async () => {
       try {
         const postDoc = doc(db, "posts", id);
         const postSnapshot = await getDoc(postDoc);
-  
+
         if (isMounted && postSnapshot.exists()) {
           setPost({ id: postSnapshot.id, ...postSnapshot.data() } as Post);
         }
-  
+
         const postsCollection = collection(db, "posts");
         const q = query(postsCollection, orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
-  
+
         if (isMounted) {
           const postsData = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           })) as Post[];
-  
+
           setAllPosts(postsData);
           setLatestPosts(postsData.filter((doc) => doc.id !== id).slice(0, 3));
         }
@@ -63,15 +63,13 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
         }
       }
     };
-  
+
     fetchPosts();
-  
+
     return () => {
       isMounted = false;
     };
-  }, [id]); // Atualize sempre que o ID mudar
-  
-  
+  }, [id]);
 
   const navigatePost = (direction: "prev" | "next") => {
     if (!allPosts.length) return;
@@ -125,14 +123,16 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
       </div>
 
       {/* Imagem */}
-      <div className="h-72 md:h-96 bg-gray-100 mb-6">
-      {post.image && (
-      <img 
-      src={post.image} 
-      alt={post.title} 
-      className="w-full h-full object-contai rounded-lg" 
-      />
-      )}
+      <div className="relative h-72 md:h-96 bg-gray-100 mb-6">
+        {post.image && (
+          <Image
+            src={post.image}
+            alt={post.title}
+            layout="fill"
+            objectFit="contain"
+            className="rounded-lg"
+          />
+        )}
       </div>
 
       {/* Índice e conteúdo */}
@@ -175,11 +175,12 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
               className="cursor-pointer border border-gray-300 rounded-lg shadow-lg overflow-hidden bg-white"
             >
               {latestPost.image && (
-                <div className="h-32 bg-gray-100">
-                  <img
+                <div className="relative h-32 bg-gray-100">
+                  <Image
                     src={latestPost.image}
                     alt={latestPost.title}
-                    className="w-full h-full object-cover"
+                    layout="fill"
+                    objectFit="cover"
                   />
                 </div>
               )}
@@ -200,6 +201,7 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
 };
 
 export default PostDetails;
+
 
 
 

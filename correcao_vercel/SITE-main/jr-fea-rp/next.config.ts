@@ -2,7 +2,7 @@
 
 const nextConfig = {
   experimental: {
-    appDir: true, // ou outras configurações específicas
+      appDir: true, // ou outras configurações específicas
   },
 };
 

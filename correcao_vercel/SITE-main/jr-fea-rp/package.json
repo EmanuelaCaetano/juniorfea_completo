@@ -11,7 +11,7 @@
   "dependencies": {
     "@firebase/firestore": "^4.7.5",
     "@nestjs-modules/mailer": "^2.0.2",
-    "@tabler/icons-react": "^3.22.0",
+    "@tabler/icons-react": "^3.26.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies-next": "^5.0.2",
@@ -33,7 +33,7 @@
     "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22.10.2",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
