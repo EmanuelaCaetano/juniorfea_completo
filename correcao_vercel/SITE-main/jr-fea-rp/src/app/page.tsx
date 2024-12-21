@@ -7,14 +7,14 @@ import { NossoDiferencial } from "@/components/NossoDiferencial";
 import Contagem from "@/components/ContagemDados"
 import SolucoesHome from "@/components/SolucoesHome"
 
-const cases = [
-  {
-    logo: '/Coca-logo.png',
-    nps: '10',
-    challenge: 'Breve descrição sobre o desafio.',
-    solution: 'Breve descrição sobre a solução desenvolvida para a empresa.',
-  },
-];
+// const cases = [
+//   {
+//     logo: '/Coca-logo.png',
+//     nps: '10',
+//     challenge: 'Breve descrição sobre o desafio.',
+//     solution: 'Breve descrição sobre a solução desenvolvida para a empresa.',
+//   },
+// ];
 const clientes = [
   {
     img:
