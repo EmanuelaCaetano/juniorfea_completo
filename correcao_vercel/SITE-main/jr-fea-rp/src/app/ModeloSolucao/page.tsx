@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ModeloSolucao from "@/components/ModeloSolucoes";
 import CartoesVisaoResultadoAcertividade from "@/components/CartoesVisaoResultadoAcertividade";
 import Introducao from "@/components/Introdução";
 import RedLine from "@/components/BordaIntroducao";
 
+// Função que usa os parâmetros da URL
 const ModeloSolucaoFunction = () => {
   const searchParams = useSearchParams();
 
@@ -41,4 +42,12 @@ const ModeloSolucaoFunction = () => {
   );
 };
 
-export default ModeloSolucaoFunction;
+// Envolva o ModeloSolucaoFunction com Suspense
+const SuspenseWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <ModeloSolucaoFunction />
+  </Suspense>
+);
+
+export default SuspenseWrapper;
+
