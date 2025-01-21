@@ -13,9 +13,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter(); // Usado para redirecionamento
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null); // Referência para o menu
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   // Função para fechar o menu ao clicar fora
   const handleClickOutside = (event: MouseEvent) => {
@@ -41,6 +43,7 @@ export default function Navbar() {
   // Fecha o menu ao mudar de página
   useEffect(() => {
     setIsMenuOpen(false);
+    setIsMobileMenuOpen(false);
   }, [pathname]);
 
   // Função para sair, limpar cookies e redirecionar
@@ -92,14 +95,14 @@ export default function Navbar() {
 
           {/* Botão do menu hambúrguer */}
           <button
-            className="text-white text-6xl p-4 w-16 h-16 flex items-center justify-center"
-            onClick={toggleMenu}
+            className="text-white text-6xl p-4 w-16 h-16 flex items-center justify-center md:hidden"
+            onClick={toggleMobileMenu}
           >
             ☰
           </button>
 
           {/* Menu dropdown */}
-          {isMenuOpen && (
+          {isMobileMenuOpen && (
             <ul
               ref={menuRef}
               className="absolute top-16 right-4 bg-black text-white shadow-lg rounded-lg p-4 w-48 space-y-2 border border-gray-700 z-50"
@@ -157,11 +160,43 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Itens de navegação */}
-        <ul className="flex gap-[32px] mr-8 items-center justify-end list-none">
+        {/* Botão do menu hambúrguer para telas menores */}
+        <button
+          className="text-white text-3xl p-2 w-12 h-12 flex items-center justify-center md:hidden"
+          onClick={toggleMobileMenu}
+        >
+          ☰
+        </button>
+
+        {/* Menu dropdown para telas menores */}
+        {isMobileMenuOpen && (
+          <ul
+            ref={menuRef}
+            className="absolute top-16 right-4 bg-black text-white shadow-lg rounded-lg p-4 w-48 space-y-2 border border-gray-700 z-50 md:hidden"
+          >
+            {items.map((item, index) => (
+              <li key={index}>
+                <Link
+                  href={item.url}
+                  className={`block px-4 py-2 hover:bg-gray-800 rounded ${
+                    pathname === item.url ? "font-bold" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Itens de navegação para telas maiores */}
+        <ul className="hidden md:flex gap-[32px] mr-8 items-center justify-end list-none">
           {items.map((item, index) => (
             <li key={index}>
-              <Link href={item.url} className={`text-white hover:underline ${pathname === item.url ? "font-bold" : ""}`}>
+              <Link
+                href={item.url}
+                className={`text-white hover:underline ${pathname === item.url ? "font-bold" : ""}`}
+              >
                 {item.label}
               </Link>
             </li>
@@ -181,6 +216,7 @@ export default function Navbar() {
     </header>
   );
 }
+
 
 
 
