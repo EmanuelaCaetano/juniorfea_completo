@@ -13,14 +13,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter(); // Usado para redirecionamento
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Adição
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Estado do menu em telas menores
   const menuRef = useRef<HTMLUListElement>(null); // Referência para o menu
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen); // Adição
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  // Função para fechar o menu ao clicar fora
-  const handleClickOutside = (event: MouseEvent) => {
+  // Fecha o menu ao clicar fora ou rolar a tela
+  const handleCloseMenu = (event: MouseEvent | Event) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
       setIsMobileMenuOpen(false);
@@ -28,18 +28,20 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    // Adiciona o listener de clique fora
-    if (isMenuOpen || isMobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleCloseMenu);
+      document.addEventListener("scroll", handleCloseMenu, { passive: true });
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleCloseMenu);
+      document.removeEventListener("scroll", handleCloseMenu);
     }
 
     // Cleanup para evitar múltiplos listeners
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleCloseMenu);
+      document.removeEventListener("scroll", handleCloseMenu);
     };
-  }, [isMenuOpen, isMobileMenuOpen]);
+  }, [isMobileMenuOpen]);
 
   // Fecha o menu ao mudar de página
   useEffect(() => {
@@ -47,18 +49,15 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Função para sair, limpar cookies e redirecionar
   const handleLogout = () => {
-    deleteCookie("authToken"); // Remove o token de autenticação
-    router.push("/admin"); // Redireciona para a página de login
+    deleteCookie("authToken");
+    router.push("/admin");
   };
 
-  // Exibição específica para a rota "/admin"
   if (pathname === "/admin") {
     return (
       <header>
         <nav className="relative flex justify-between items-center p-4 bg-black shadow-xl">
-          {/* Logo à esquerda */}
           <Link href="/">
             <Image
               className="w-[120px] object-cover ml-4 mt-2 mb-2"
@@ -73,7 +72,6 @@ export default function Navbar() {
     );
   }
 
-  // Exibição específica para as rotas administrativas
   if (
     pathname === "/admin/homeAdmin" ||
     pathname === "/admin/adicionarPost" ||
@@ -83,7 +81,6 @@ export default function Navbar() {
     return (
       <header>
         <nav className="relative flex justify-between items-center p-4 bg-black shadow-xl">
-          {/* Logo à esquerda */}
           <Link href="/">
             <Image
               className="w-[120px] object-cover ml-4 mt-2 mb-2"
@@ -94,7 +91,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Botão do menu hambúrguer */}
           <button
             className="text-white text-6xl p-4 w-16 h-16 flex items-center justify-center"
             onClick={toggleMenu}
@@ -102,7 +98,6 @@ export default function Navbar() {
             ☰
           </button>
 
-          {/* Menu dropdown */}
           {isMenuOpen && (
             <ul
               ref={menuRef}
@@ -138,7 +133,6 @@ export default function Navbar() {
     );
   }
 
-  // Exibição padrão para outras rotas
   const items = [
     { url: "/", label: "Júnior FEA - RP" },
     { url: "/sobre", label: "Sobre" },
@@ -150,7 +144,6 @@ export default function Navbar() {
   return (
     <header>
       <nav className="flex justify-between items-center p-2 bg-black shadow-xl drop-shadow-lg">
-        {/* Logo */}
         <Link href="/">
           <Image
             className="w-[120px] object-cover ml-4 mt-2 mb-2"
@@ -161,7 +154,6 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Botão do menu hambúrguer para telas menores */}
         <button
           className="text-white text-3xl p-2 w-12 h-12 flex items-center justify-center md:hidden"
           onClick={toggleMobileMenu}
@@ -169,44 +161,26 @@ export default function Navbar() {
           ☰
         </button>
 
-        {/* Menu dropdown para telas menores */}
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center">
-            <ul
-              ref={menuRef}
-              className="space-y-6 text-center"
-            >
-              {items.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    href={item.url}
-                    className={`block text-white text-2xl px-4 py-2 hover:underline ${
-                      pathname === item.url ? "font-bold" : ""
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <a
-                  href="/contato"
-                  className="bg-corPrimaria text-white text-xl px-6 py-3 rounded-full hover:bg-white hover:text-corPrimaria transition duration-200"
+          <ul
+            ref={menuRef}
+            className="absolute top-16 right-4 bg-black text-white shadow-lg rounded-lg p-4 w-48 space-y-2 border border-gray-700 z-50 md:hidden"
+          >
+            {items.map((item, index) => (
+              <li key={index}>
+                <Link
+                  href={item.url}
+                  className={`block px-4 py-2 hover:bg-gray-800 rounded ${
+                    pathname === item.url ? "font-bold" : ""
+                  }`}
                 >
-                  Contatar
-                </a>
+                  {item.label}
+                </Link>
               </li>
-            </ul>
-            <button
-              className="absolute top-4 right-4 text-white text-4xl"
-              onClick={toggleMobileMenu}
-            >
-              ✕
-            </button>
-          </div>
+            ))}
+          </ul>
         )}
 
-        {/* Itens de navegação */}
         <ul className="hidden md:flex gap-[32px] mr-8 items-center justify-end list-none">
           {items.map((item, index) => (
             <li key={index}>
@@ -216,7 +190,6 @@ export default function Navbar() {
             </li>
           ))}
 
-          {/* Botão de contato */}
           <li>
             <a
               href="/contato"
