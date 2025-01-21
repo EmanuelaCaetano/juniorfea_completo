@@ -16,7 +16,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLUListElement>(null); // Referência para o menu
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  //const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   // Função para fechar o menu ao clicar fora
