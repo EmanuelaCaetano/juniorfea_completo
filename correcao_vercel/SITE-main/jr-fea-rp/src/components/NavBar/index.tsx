@@ -13,23 +13,23 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter(); // Usado para redirecionamento
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); //adição
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Adição
   const menuRef = useRef<HTMLUListElement>(null); // Referência para o menu
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen); //adição
-  
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen); // Adição
 
   // Função para fechar o menu ao clicar fora
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
+      setIsMobileMenuOpen(false);
     }
   };
 
   useEffect(() => {
     // Adiciona o listener de clique fora
-    if (isMenuOpen) {
+    if (isMenuOpen || isMobileMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -39,7 +39,7 @@ export default function Navbar() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isMobileMenuOpen]);
 
   // Fecha o menu ao mudar de página
   useEffect(() => {
@@ -171,26 +171,40 @@ export default function Navbar() {
 
         {/* Menu dropdown para telas menores */}
         {isMobileMenuOpen && (
-          <ul
-            ref={menuRef}
-            className="absolute top-16 right-4 bg-black text-white shadow-lg rounded-lg p-4 w-48 space-y-2 border border-gray-700 z-50 md:hidden"
-          >
-            {items.map((item, index) => (
-              <li key={index}>
-                <Link
-                  href={item.url}
-                  className={`block px-4 py-2 hover:bg-gray-800 rounded ${
-                    pathname === item.url ? "font-bold" : ""
-                  }`}
+          <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center">
+            <ul
+              ref={menuRef}
+              className="space-y-6 text-center"
+            >
+              {items.map((item, index) => (
+                <li key={index}>
+                  <Link
+                    href={item.url}
+                    className={`block text-white text-2xl px-4 py-2 hover:underline ${
+                      pathname === item.url ? "font-bold" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="/contato"
+                  className="bg-corPrimaria text-white text-xl px-6 py-3 rounded-full hover:bg-white hover:text-corPrimaria transition duration-200"
                 >
-                  {item.label}
-                </Link>
+                  Contatar
+                </a>
               </li>
-            ))}
-          </ul>
+            </ul>
+            <button
+              className="absolute top-4 right-4 text-white text-4xl"
+              onClick={toggleMobileMenu}
+            >
+              ✕
+            </button>
+          </div>
         )}
-
-
 
         {/* Itens de navegação */}
         <ul className="hidden md:flex gap-[32px] mr-8 items-center justify-end list-none">
@@ -216,6 +230,7 @@ export default function Navbar() {
     </header>
   );
 }
+
 
 
 
