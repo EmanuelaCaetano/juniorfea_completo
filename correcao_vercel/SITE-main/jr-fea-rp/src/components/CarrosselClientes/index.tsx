@@ -19,14 +19,10 @@ export default function CarrosselClientes(){
       name: "Logo Coca Cola",
     },
     {
-      img:"/BFC-logo.png",
+      img:"/BFC.png",
       name: "Logo Botafogo de Ribeirão Preto",
     },
-    {
-      img:
-        "/guarana-logo.png",
-      name: "Logo Guarana",
-    },
+  
   ];
 
     return (

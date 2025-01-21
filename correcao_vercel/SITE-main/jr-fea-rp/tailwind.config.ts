@@ -8,7 +8,7 @@ const {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
-  darkMode: ["class", "class"],
+  darkMode: false, // Desabilita o modo escuro completamente
   theme: {
   	extend: {
 		colors: {
@@ -56,4 +56,5 @@ function addVariablesForColors({ addBase, theme }: any) {
   addBase({
     ":root": newVars,
   });
-} 
+}
+
