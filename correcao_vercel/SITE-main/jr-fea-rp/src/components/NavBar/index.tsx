@@ -19,8 +19,8 @@ export default function Navbar() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  // Fecha o menu ao clicar fora ou rolar a tela
-  const handleCloseMenu = (event: MouseEvent | Event) => {
+  // Fecha o menu ao clicar fora
+  const handleCloseMenu = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
       setIsMobileMenuOpen(false);
@@ -30,16 +30,13 @@ export default function Navbar() {
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.addEventListener("mousedown", handleCloseMenu);
-      document.addEventListener("scroll", handleCloseMenu, { passive: true });
     } else {
       document.removeEventListener("mousedown", handleCloseMenu);
-      document.removeEventListener("scroll", handleCloseMenu);
     }
 
     // Cleanup para evitar múltiplos listeners
     return () => {
       document.removeEventListener("mousedown", handleCloseMenu);
-      document.removeEventListener("scroll", handleCloseMenu);
     };
   }, [isMobileMenuOpen]);
 
@@ -164,7 +161,7 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <ul
             ref={menuRef}
-            className="absolute top-16 right-4 bg-black text-white shadow-lg rounded-lg p-4 w-48 space-y-2 border border-gray-700 z-50 md:hidden"
+            className="fixed inset-0 bg-black text-white shadow-lg rounded-none p-4 space-y-4 z-[9999] overflow-auto"
           >
             {items.map((item, index) => (
               <li key={index}>
@@ -184,7 +181,10 @@ export default function Navbar() {
         <ul className="hidden md:flex gap-[32px] mr-8 items-center justify-end list-none">
           {items.map((item, index) => (
             <li key={index}>
-              <Link href={item.url} className={`text-white hover:underline ${pathname === item.url ? "font-bold" : ""}`}>
+              <Link
+                href={item.url}
+                className={`text-white hover:underline ${pathname === item.url ? "font-bold" : ""}`}
+              >
                 {item.label}
               </Link>
             </li>
@@ -203,6 +203,7 @@ export default function Navbar() {
     </header>
   );
 }
+
 
 
 
