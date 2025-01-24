@@ -75,7 +75,7 @@ export const CarrosselClientesCases = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller py-16 mt-40 mb-40 w-full bg-corPrimaria relative z-20  overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller py-16 mt-0 mb-40 w-full bg-corPrimaria relative z-20  overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]",
       )}
     >
       <ul
@@ -88,10 +88,10 @@ export const CarrosselClientesCases = ({
       >
         {items.map((item/*, idx*/) => (
           <li
-            className="hover:scale-110 trasition duration-200 ease-in-out bg-orange-50 w-[350px] relative rounded-2xl drop-shadow-2xl shadow-black flex-shrink-0 border-slate-700 px-8 py-6 "
+            className="hover:scale-110 trasition duration-200 ease-in-out bg-white w-[350px] relative rounded-2xl drop-shadow-2xl shadow-black flex-shrink-0 border-slate-700 px-8 py-6 "
             style={{
               background:
-                " bg-orange-50",
+                " bg-white",
             }}
             key={item.name}
           >
@@ -105,7 +105,7 @@ export const CarrosselClientesCases = ({
               <div className="relative text-center mt-6 flex flex-col items-center">                
                 <h2 className="p-4 font-bold">{item.name}</h2>
                 <h3 className="p-4">{item.cargo}</h3>
-                <p className="text-base pt-10">{item.descricao}</p>
+                <p className="p-4 font-bold">{item.descricao}</p>
 
               </div>
             </blockquote>

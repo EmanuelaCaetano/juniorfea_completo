@@ -5,21 +5,21 @@ export default function CarrosselClientes(){
   const images = [
     {
       img:
-        "/99logo.jpeg",
+        "/2.png",
       name: "Logo 99 Taxi",
     },
     {
       img:
-        "/danone.png",
+        "/1.png",
       name: "Logo Danone",
     },
     {
       img:
-        "/Coca-logo.png",
+        "/4.png",
       name: "Logo Coca Cola",
     },
     {
-      img:"/BFC.png",
+      img:"/3.png",
       name: "Logo Botafogo de Ribeirão Preto",
     },
   
