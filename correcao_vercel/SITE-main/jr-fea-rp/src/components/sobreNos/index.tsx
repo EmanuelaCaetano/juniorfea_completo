@@ -1,3 +1,4 @@
+import DynamicImages from "../BgAnimacao";
 
 
 export default function SobreNos () {
@@ -7,8 +8,9 @@ export default function SobreNos () {
                 <div className='w-1/3 h-1/6 pl-8 flex items-center bg-corPrimaria bg-opacity-60 drop-shadow-lg '>
                     <h2 className='text-white text-3xl font-bold'>Sobre Nós</h2>
                 </div>
-                <div className=" h-full  p-16 ">
+                <div className=" h-full  p-16 flex ">
                     <div  className=' w-full h-68 rounded-2xl flex flex-col justify-center p-8 text-xl text-center font-normal  bg-corPrimaria drop-shadow-2xl shadow-lg text-white'>
+                        <div className="order-2 lg:order-1">
                         <p className="pt-8 pl-4 pr-4">Fundada em <b>1992</b>, a Júnior FEA-RP é uma empresa júnior formada por alunos de Administração, Contabilidade, Economia e Finanças da <b>FEA USP Ribeirão Preto</b>. Nossos projetos têm como finalidade transformar a ideia dos nossos clientes em realidades de sucesso e contribuir para a vivência empresarial. 
                         </p>
                         <br></br>
@@ -22,7 +24,11 @@ export default function SobreNos () {
                         <p className="pl-4 pr-4 pb-8">
                         Somos Tetra Alto Impacto </p>
                         <p className="pl-4 pr-4 pb-8">
-                        Somos a maior consultoria empresarial do interior</p>
+                        Somos a maior consultoria mpresarial do interior</p>
+                        </div>
+                        <div className="order-1 lg:order-2 flex justify-center">
+                            <DynamicImages />   
+                        </div>
                     </div>
                 </div>
             </div>
