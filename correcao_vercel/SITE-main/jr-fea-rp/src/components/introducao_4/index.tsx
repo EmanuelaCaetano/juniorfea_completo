@@ -38,11 +38,10 @@ const InfoSection2: React.FC = () => {
         >
           {/* Caixa de contenção para o texto */}
           <div className="ml-auto max-w-[50%] pr-8">
-            <h2 className="ml-[50%]  font-bold mb-6">
-            <TypewriterEffectSmooth words={words} />
-            </h2>
+            <TypewriterEffectSmooth words={words} className="ml-[30%] md:ml-[40%] lg:[50%]font-bold mb-6 "/>
+            
             <BlurFade delay={0.25} inView>
-            <p className="sm:text-xl text-xl leading-relaxed max-w-[800px]">
+            <p className="text-sl sm:text-l md:text-xl ml-4 sm:ml-4 md:ml-4 lg:ml-4 leading-relaxed max-w-[800px]">
             Empresa Júnior da melhor universidade da América Latina!
             Construindo as melhores estratégias de reconhecimento, posicionamento no mercado e inovação.
             </p>
