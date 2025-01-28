@@ -86,7 +86,7 @@ export const CarrosselImages = ({
       >
         {items.map((item/*, idx*/) => (
           <li
-            className="bg-white w-[350px] relative rounded-2xl drop-shadow-2xl shadow-black flex-shrink-0 border-slate-700 px-8 py-6 md:w-[200px]"
+            className="bg-white w-[200px] relative rounded-2xl drop-shadow-2xl shadow-black flex-shrink-0 border-slate-700 px-8 py-6"
             style={{
               background:
                 " bg-white",
@@ -96,10 +96,10 @@ export const CarrosselImages = ({
             <blockquote>
               <div
                 aria-hidden="true"
-                className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 w-[calc(100%_+_4px)]"
               ></div>
               
-              <div className="relative z-20 flex flex-row items-center">                
+              <div className="relative flex flex-row items-center">                
                   <Image src={item.img} alt={item.name} width="200" height="200"/>                 
               </div>
             </blockquote>
