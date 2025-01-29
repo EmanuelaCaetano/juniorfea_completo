@@ -5,7 +5,7 @@ export default function SobreNos () {
     return(
         <>
                 <div className="w-full h-full pt-16  ">
-                <div className='w-1/3 h-1/6 pl-8 flex items-center bg-corPrimaria bg-opacity-60 drop-shadow-lg '>
+                <div className='w-[200px] h-1/6 pl-8 flex items-center bg-corPrimaria bg-opacity-60 drop-shadow-lg '>
                     <h2 className='text-white text-3xl font-bold'>Sobre Nós</h2>
                 </div>
                 <div className=" h-full  p-16 flex ">
