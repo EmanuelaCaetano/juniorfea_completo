@@ -33,7 +33,7 @@ export default function SobreNos () {
                 </div>
             </div>
             <div className="mt-8 flex justify-center">
-            <img src="/fotoMej.jpg" className="p-10 w-auto lg:w-[1000px] h-auto h-[700px] rounded-lg drop-shadow-lg drop-shadow-lg opacity-88 rounded-lg hover:scale-105 duration-300"></img>
+            <img src="/fotoMej.jpg" className="p-20 w-auto lg:w-[1000px] h-auto h-[700px] rounded-lg drop-shadow-lg drop-shadow-lg opacity-88 rounded-lg hover:scale-105 duration-300"></img>
             </div>
         </>
     )

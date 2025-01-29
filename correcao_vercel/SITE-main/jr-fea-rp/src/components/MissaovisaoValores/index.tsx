@@ -14,6 +14,9 @@ import { FaEye } from "react-icons/fa";
 export default function MissaoVisaoValores() {
   return (
     <>
+      <div className='w-[400px] h-1/6 pl-8 flex items-center bg-corPrimaria bg-opacity-60 drop-shadow-lg '>
+        <h2 className='text-white text-3xl font-bold'>Para que estamos aqui</h2>
+      </div>
       <div className=" h-full p-24 bg-white flex justify-center gap-40">
           <div className="h-[500px] w-[300px] border-2 text-corPrimaria border-corPrimaria rounded-xl flex flex-col items-center drop-shadow-xl hover:bg-corPrimaria hover:text-white duration-300 transition p-4 font-bold">
             <h2 className="text-5xl">Missão</h2>
