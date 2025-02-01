@@ -2,12 +2,14 @@
 
 import { FadeText } from "@/components/ui/fade-text";
 import Image from 'next/image';
+import { AnimacaoEscrita } from '@/components/ANIMACOES/AnimacaoEscrita';
 
 export default function MovimentoEmpresaJunior(){
     return(
         <>
         <div className="bg-corPrimaria text-white drop-shadow-lg py-16 px-4 sm:px-6 md:px-12 lg:px-28 xl:px-40 2xl:px-60 flex flex-col justify-center min-h-screen ">
-                <h2 className='p-5 text-white text-3xl font-bold text-center'>Movimento Empresa Júnior</h2>
+
+        <AnimacaoEscrita loop={true} texts={["Movimento Empresa Junior", "Presença de peso no MEJ!"]} />
                 
                 <div className="flex flex-col lg:flex-row justify-between items-center gap-8 sm:gap-10 lg:gap-16 pt-8">
                     {/* Texto */}

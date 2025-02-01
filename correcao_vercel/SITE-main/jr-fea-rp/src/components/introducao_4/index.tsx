@@ -33,7 +33,7 @@ const InfoSection2: React.FC = () => {
         <div
           className="absolute z-10 flex flex-col justify-center bg-corPrimaria text-white w-full h-full p-8 text-right"
           style={{
-            clipPath: "polygon(70% 0, 100% 0, 100% 100%, 30% 100%)", // Polígono invertido para o lado direito
+            clipPath: "polygon(60% 0, 100% 0, 100% 100%, 20% 100%)", // Polígono invertido para o lado direito
           }}
         >
           {/* Caixa de contenção para o texto */}
