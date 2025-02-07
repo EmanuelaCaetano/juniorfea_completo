@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+//import Link from 'next/link';
 import BlurFade from '../ui/blur-fade';
 import { TypewriterEffectSmooth } from '../ui/typewriter-effect';
 import { motion, AnimatePresence } from 'framer-motion';
