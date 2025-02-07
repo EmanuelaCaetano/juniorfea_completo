@@ -11,9 +11,9 @@ interface ImageData {
 }
 
 const images: ImageData[] = [
-  { src: '/imagemTeste1.jpg', alt: 'Imagem 1' },
-  { src: '/imagemTeste2.jpg', alt: 'Imagem 2' },
-  { src: '/imagemTeste3.jpg', alt: 'Imagem 3' },
+  { src: '/duvidas1.jpg', alt: 'Imagem 1' },
+  { src: '/duvidas2.jpg', alt: 'Imagem 2' },
+  { src: '/duvidas3.jpg', alt: 'Imagem 3' },
   // Adicione mais imagens aqui
 ];
 
@@ -59,12 +59,12 @@ const DynamicBackground = () => {
             <h1 className="text-2xl md:text-4xl text-white font-bold">
               Ainda está com Dúvidas? Fale com um Consultor!
             </h1>
-            <p className="text-white font-medium pt-4 md:pt-8 text-sm md:text-base">
+            <p className="text-white font-medium pt-4 md:pt-8 text-base md:text-2xl">
               Queremos ouvir você! Marque uma reunião para discutirmos como podemos ajudar sua empresa a alcançar novos patamares. Estamos prontos para colaborar!
             </p>
             <a
               href="/contato"
-              className="bg-white px-6 py-3 md:px-8 md:py-4 rounded-3xl mt-8 md:mt-16 font-bold drop-shadow-lg hover:bg-corPrimaria hover:text-white hover:scale-110 transition duration-200 ease-in-out"
+              className="bg-white px-6 py-3 md:px-8 md:py-4 rounded-3xl mt-8 md:mt-16 text-base sm:text-xl md:text-2xl font-bold drop-shadow-lg hover:bg-corPrimaria hover:text-white hover:scale-110 transition duration-200 ease-in-out"
             >
               Faça um Diagnóstico Gratuito!
             </a>

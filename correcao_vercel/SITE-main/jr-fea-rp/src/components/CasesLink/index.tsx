@@ -5,12 +5,12 @@ const NoticiasParceiros: React.FC = () => {
     <div className="bg-corPrimaria pt-8 text-white">
       <h1 className="text-3xl font-bold pl-8 mb-4">Quem confia no nosso trabalho!</h1>
       <p className="text-base mb-8 pl-8">
-        Empresas do seu dia-a-dia que confiam na FEA.
+        Empresas do seu dia-a-dia que confiam na<span className="font-bold text-2xl"> JR FEA RP.</span> 
       </p>
       <div className="w-full h-full bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 p-8 bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-20 p-8 bg-white">
           {/* Card 1 */}
-          <div className="ml-10 bg-white border-2 border-corPrimaria text-black p-30 rounded-lg shadow-md flex flex-col justify-between p-4">
+          <div className="lg:ml-10 bg-white border-2 border-corPrimaria text-black p-30 rounded-lg shadow-md flex flex-col justify-between p-4">
             <div>
               <img
                 src="/BFC.png"
@@ -31,7 +31,7 @@ const NoticiasParceiros: React.FC = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="mr-10 bg-white border-2 border-corPrimaria text-black p-30 rounded-lg shadow-md flex flex-col justify-between p-4">
+          <div className="lg:mr-10 bg-white border-2 border-corPrimaria text-black p-30 rounded-lg shadow-md flex flex-col justify-between p-4">
             <div>
               <img
                 src="/gandhi.png"

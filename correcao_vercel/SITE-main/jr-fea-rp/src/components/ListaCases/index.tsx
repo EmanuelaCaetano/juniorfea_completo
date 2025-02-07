@@ -30,17 +30,18 @@ const SolucoesInovadoras: React.FC = () => {
       {/* Solução Inovadora - 99 */}
       <BlurFade delay={0.25} inView>
         <div className="flex flex-col md:flex-row items-center md:justify-between mb-20 border-b pb-8"> {/* Aumentei o espaçamento entre as seções */}
+        <img
+            src="/99logo.jpeg"
+            alt="99"
+            className="w-60 h-auto object-contain mb-4 md:mt-0 ml-10"
+          />
           <div className="md:w-3/5 text-center md:text-left px-10"> {/* Adicionei padding aqui */}
             <h2 className="text-xl font-semibold mb-6">Solução Inovadora</h2> {/* Aumentei o espaçamento entre o título e o texto */}
             <p className="text-gray-700">
               Breve descrição sobre o desafio. Breve descrição sobre o desafio. Breve descrição sobre o desafio.
             </p>
           </div>
-          <img
-            src="/99logo.jpeg"
-            alt="99"
-            className="w-40 h-auto object-contain mt-4 md:mt-0 mr-10"
-          />
+          
         </div>
       </BlurFade>
 
@@ -64,17 +65,18 @@ const SolucoesInovadoras: React.FC = () => {
       {/* Solução Inovadora - Danone */}
       <BlurFade delay={0.25} inView>
         <div className="flex flex-col md:flex-row items-center md:justify-between mb-20"> {/* Aumentei o espaçamento entre as seções */}
+        <img
+            src="/Danone-Logo.png"
+            alt="Danone"
+            className="w-60 h-auto object-contain mb-4 md:mb-0 ml-10"
+          />
           <div className="md:w-3/5 text-center md:text-left px-10"> {/* Adicionei padding aqui */}
             <h2 className="text-xl font-semibold mb-6">Solução Inovadora</h2> {/* Aumentei o espaçamento entre o título e o texto */}
             <p className="text-gray-700">
               Breve descrição sobre o desafio. Breve descrição sobre o desafio. Breve descrição sobre o desafio.
             </p>
           </div>
-          <img
-            src="/Danone-Logo.png"
-            alt="Danone"
-            className="w-40 h-auto object-contain mt-4 md:mt-0 mr-10"
-          />
+          
         </div>
       </BlurFade>
     </div>

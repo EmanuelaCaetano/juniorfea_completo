@@ -35,7 +35,7 @@ const InfoSection: React.FC = () => {
         >
           <div className="max-w-[50%] pl-8">
             <h2 className="text-4xl font-bold mb-6">
-              <TypewriterEffectSmooth words={words} />
+              <TypewriterEffectSmooth words={words} className="font-bold mb-6 " />
             </h2>
             <BlurFade delay={0.25} inView>
               <p className="text-lg leading-relaxed">
