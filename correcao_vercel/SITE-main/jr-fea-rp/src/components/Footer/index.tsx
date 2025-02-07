@@ -19,7 +19,7 @@ export default function Footer() {
         
         {/* Logo */}
         <div className="mb-6 md:mb-0 flex flex-col items-center pb-10">
-          <Image src="/logo.png" alt="Logo" width={200} height={200} />
+          <Image src="/Logo.png" alt="Logo" width={200} height={200} />
           <p className="text-sm mt-2 pt-3">&copy; 2022 Júnior FEA-RP</p>
         </div>
 
