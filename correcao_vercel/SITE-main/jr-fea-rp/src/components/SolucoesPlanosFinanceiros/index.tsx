@@ -119,7 +119,7 @@ const ModeloSolucaoFinanceira = () => {
                     },
                   }}
                 >
-                  <button className="w-full px-4 py-2 text-sm font-semibold rounded-lg hover:bg-gray-300 focus:outline-none">
+                  <button className="w-full px-4 py-2 text-sm font-semibold rounded-lg hover:bg-gray-300 hover:text-corPrimaria focus:outline-none">
                     <div className="flex items-center justify-center space-x-2">
                       {solucao.titulo === "Análise de Custos" && <FaSearch />}
                       {solucao.titulo === "Estrutura Financeira" && <GoGraph />}
