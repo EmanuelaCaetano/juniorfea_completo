@@ -8,6 +8,8 @@ export interface ElementosCirculo {
   items: string[];
   imagemUrl: string;
   imagemUrl2: string;
+  link: string;
+  query: Record<string, string>;
 }
 
 interface AnimacaoCirculoProps {
