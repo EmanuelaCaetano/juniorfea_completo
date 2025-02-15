@@ -5,6 +5,7 @@ import { collection, addDoc } from "firebase/firestore";
 
 const AddPost: React.FC = () => {
   const [title, setTitle] = useState<string>(""); // Título do post
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);// Categorias do post
   const [image, setImage] = useState<string | null>(null); // Imagem carregada
   const [subtitles, setSubtitles] = useState<{ id: number; subtitle: string; content: string }[]>([
     { id: 1, subtitle: "", content: "" },
@@ -21,6 +22,19 @@ const AddPost: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  // Função para carregar as categorias
+  const handleCategoryToggle = (category: string) => {
+    setSelectedCategories((prevCategories) => {
+      const newCategories = prevCategories.includes(category)
+        ? prevCategories.filter((c) => c !== category) // Remove se já estiver
+        : [...prevCategories, category]; // Adiciona se ainda não estiver
+  
+      console.log("Categorias selecionadas:", newCategories); // Depuração
+      return newCategories; // Retorna o novo estado atualizado
+    });
+  };
+  
 
   // Função para adicionar um novo subtítulo
   const addSubtitle = () => {
@@ -105,6 +119,28 @@ const AddPost: React.FC = () => {
           </div>
         </div>
 
+        <div className=" mb-6">
+        <label className="block mb-6 text-gray-700 font-medium">Categoria</label>
+          <ul className="flex gap-6">
+          {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(
+            (category) => (
+              <li key={category}>
+                <button
+                  type="button"
+                  className={`border border-gray-300 rounded-md p-3 transition ${
+                  selectedCategories.includes(category)
+                  ? "bg-corPrimaria text-white"
+                  : "text-gray-700 hover:bg-corPrimaria"
+                  }`}
+                  onClick={() => handleCategoryToggle(category)}
+                  >
+                  {category}
+                  </button>
+              </li>
+          ))}
+          </ul>
+        </div>
+
         {/* Subtítulos e Conteúdo */}
         {subtitles.map((item, index) => (
           <div key={item.id} className="mb-6">
@@ -149,7 +185,7 @@ const AddPost: React.FC = () => {
         <div className="mt-6">
           <button
             type="submit"
-            className="bg-red-500 text-white font-bold py-2 px-8 rounded-md hover:bg-red-600 transition"
+            className="bg-corPrimaria text-white font-bold py-2 px-8 rounded-md hover:bg-red-600 transition"
           >
             Salvar Post
           </button>
