@@ -5,6 +5,7 @@ import { collection, addDoc } from "firebase/firestore";
 
 const AddPost: React.FC = () => {
   const [title, setTitle] = useState<string>(""); // Título do post
+  const [previa, setPrevia] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);// Categorias do post
   const [image, setImage] = useState<string | null>(null); // Imagem carregada
   const [subtitles, setSubtitles] = useState<{ id: number; subtitle: string; content: string }[]>([
@@ -55,12 +56,15 @@ const AddPost: React.FC = () => {
     try {
       await addDoc(collection(db, "posts"), {
         title,
+        previa,
         image,
         subtitles,
+        selectedCategories,
         createdAt: new Date(),
       });
       alert("Post adicionado com sucesso!");
       setTitle("");
+      setPrevia("")
       setImage(null);
       setSubtitles([{ id: 1, subtitle: "", content: "" }]); // Reset dos campos
     } catch (error) {
@@ -86,6 +90,21 @@ const AddPost: React.FC = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Digite o título da publicação"
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Título */}
+        <div className="mb-6">
+          <label htmlFor="posPrevia" className="block mb-2 text-gray-700 font-medium">
+            Previa para o cartão
+          </label>
+          <textarea
+            
+            id="posrPrevia"
+            value={previa}
+            onChange={(e) => setPrevia(e.target.value)}
+            placeholder="Digite a preva da publicação"
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
