@@ -18,7 +18,7 @@ export default function Home() {
       <div className="bg-gradient-to-b from-zinc-200">
         <h2 className=' pl-8 py-6 sm:text-3x md:text-3xl font-light'>Navegue em Nosso Blog</h2>
         <hr className="w-11/12 border-t border-black mx-auto"></hr>
-        <ul className="mt-6 flex justify-center gap-6">
+        {/* <ul className="mt-6 flex justify-center gap-6">
           {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(
             (category) => (
               <li key={category}>
@@ -37,7 +37,7 @@ export default function Home() {
                   </button>
               </li>
           ))}
-          </ul>
+          </ul> */}
       <div>
             <CartoesBlog2 />
            

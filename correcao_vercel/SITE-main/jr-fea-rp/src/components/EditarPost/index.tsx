@@ -173,12 +173,12 @@ const ManagePosts: React.FC = () => {
                 type="text"
                 value={item.subtitle}
                 onChange={(e) => handleSubtitleChange(item.id, "subtitle", e.target.value)}
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-corPrimaria"
               />
               <textarea
                 value={item.content}
                 onChange={(e) => handleSubtitleChange(item.id, "content", e.target.value)}
-                className="w-full border border-gray-300 rounded-md p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-corPrimaria"
               />
             </div>
           ))}
@@ -189,7 +189,7 @@ const ManagePosts: React.FC = () => {
               type="text"
               value={selectedPost.image || ""}
               onChange={(e) => handleChange("image", e.target.value)}
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-corPrimaria"
             />
           </div>
 
@@ -201,7 +201,7 @@ const ManagePosts: React.FC = () => {
             >
               Cancelar
             </button>
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            <button type="submit" className="px-4 py-2 bg-corPrimaria text-white rounded-md">
               Salvar
             </button>
           </div>
