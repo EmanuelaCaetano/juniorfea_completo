@@ -18,6 +18,26 @@ export default function Home() {
       <div className="bg-gradient-to-b from-zinc-200">
         <h2 className=' pl-8 py-6 sm:text-3x md:text-3xl font-light'>Navegue em Nosso Blog</h2>
         <hr className="w-11/12 border-t border-black mx-auto"></hr>
+        <ul className="mt-6 flex justify-center gap-6">
+          {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(
+            (category) => (
+              <li key={category}>
+                <button
+                  type="button"
+                  className={`border border-gray-300 rounded-md p-3 //transition
+                      ${
+                  // selectedCategories.includes(category)
+                  // ? "bg-corPrimaria text-white"
+                  // : 
+                  "text-gray-700 hover:bg-corPrimaria"
+                  }`}
+                  // onClick={() => handleCategoryToggle(category)}
+                  >
+                  {category}
+                  </button>
+              </li>
+          ))}
+          </ul>
       <div>
             <CartoesBlog2 />
            

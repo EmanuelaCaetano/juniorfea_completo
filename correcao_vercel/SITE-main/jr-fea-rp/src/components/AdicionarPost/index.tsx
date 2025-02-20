@@ -50,25 +50,35 @@ const AddPost: React.FC = () => {
   };
 
   // Função para salvar os dados no Firebase
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    try {
-      await addDoc(collection(db, "posts"), {
-        title,
-        image,
-        subtitles,
-        createdAt: new Date(),
-      });
-      alert("Post adicionado com sucesso!");
-      setTitle("");
-      setImage(null);
-      setSubtitles([{ id: 1, subtitle: "", content: "" }]); // Reset dos campos
-    } catch (error) {
-      console.error("Erro ao adicionar post: ", error);
-      alert("Erro ao adicionar post.");
-    }
-  };
+const handleSubmit = async (event: React.FormEvent) => {
+  event.preventDefault();
 
+  // Verifica se o selectedCategories está vazio
+  if (selectedCategories.length === 0) {
+    alert("Por favor, selecione pelo menos uma categoria antes de salvar.");
+    return; // Impede o envio do formulário
+  }
+
+  try {
+    await addDoc(collection(db, "posts"), {
+      title,
+      image,
+      subtitles,
+      selectedCategories, // Salvar categorias
+      createdAt: new Date(),
+    });
+    alert("Post adicionado com sucesso!");
+
+    // Resetar os campos do formulário
+    setTitle("");
+    setImage(null);
+    setSelectedCategories([]); // Reset das categorias
+    setSubtitles([{ id: 1, subtitle: "", content: "" }]); // Reset dos campos
+  } catch (error) {
+    console.error("Erro ao adicionar post: ", error);
+    alert("Erro ao adicionar post.");
+  }
+};
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50">
       <form
