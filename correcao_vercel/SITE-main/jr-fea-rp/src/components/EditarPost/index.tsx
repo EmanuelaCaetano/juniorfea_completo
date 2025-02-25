@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import db from "../../utils/firestore";
 import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
 
-// Definindo a interface Subtitle
 interface Subtitle {
   id: number;
   subtitle: string;
@@ -15,20 +14,23 @@ interface Post {
   title: string;
   image: string | null;
   subtitles: Subtitle[];
+  categories: string[]; // Adicionando categorias ao Post
 }
+
+const CATEGORIES = ["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"];
 
 const ManagePosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Carregar todos os posts
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "posts"));
         const postsData: Post[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
+          categories: doc.data().selectedCategories, // Garante que não seja undefined
           ...doc.data(),
         })) as Post[];
         setPosts(postsData);
@@ -42,14 +44,13 @@ const ManagePosts: React.FC = () => {
     fetchPosts();
   }, []);
 
-  // Carregar um post específico para edição
   const handleEditClick = async (postId: string) => {
     try {
       const docRef = doc(db, "posts", postId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setSelectedPost({ id: postId, ...docSnap.data() } as Post);
+        setSelectedPost({ id: postId, categories: docSnap.data().selectedCategories, ...docSnap.data() } as Post);
       } else {
         alert("Post não encontrado!");
       }
@@ -58,13 +59,11 @@ const ManagePosts: React.FC = () => {
     }
   };
 
-  // Atualizar campos do post
-  const handleChange = (field: "title" | "image" | "subtitles", value: string | null | Subtitle[]) => {
+  const handleChange = (field: keyof Post, value: any) => {
     if (!selectedPost) return;
     setSelectedPost({ ...selectedPost, [field]: value });
   };
 
-  // Atualizar subtítulo ou conteúdo
   const handleSubtitleChange = (id: number, field: "subtitle" | "content", value: string) => {
     if (!selectedPost) return;
     const updatedSubtitles = selectedPost.subtitles.map((item) =>
@@ -73,7 +72,17 @@ const ManagePosts: React.FC = () => {
     setSelectedPost({ ...selectedPost, subtitles: updatedSubtitles });
   };
 
-  // Salvar alterações no Firebase
+  const handleCategoryToggle = (category: string) => {
+    if (!selectedPost) return;
+    setSelectedPost((prevPost) => {
+      if (!prevPost) return null;
+      const newCategories = prevPost.categories.includes(category)
+        ? prevPost.categories.filter((c) => c !== category)
+        : [...prevPost.categories, category];
+      return { ...prevPost, categories: newCategories };
+    });
+  };
+
   const handleSave = async () => {
     if (!selectedPost) return;
 
@@ -83,9 +92,10 @@ const ManagePosts: React.FC = () => {
         title: selectedPost.title,
         image: selectedPost.image,
         subtitles: selectedPost.subtitles,
+        categories: selectedPost.categories, // Salvar categorias
       });
       alert("Post atualizado com sucesso!");
-      setSelectedPost(null); // Volta para a lista de posts
+      setSelectedPost(null);
     } catch (error) {
       console.error("Erro ao salvar alterações:", error);
       alert("Erro ao salvar alterações.");
@@ -98,7 +108,6 @@ const ManagePosts: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-50">
-      {/* Lista de Posts */}
       {!selectedPost ? (
         <div className="w-full max-w-4xl mt-10 p-6 bg-white shadow-lg rounded-lg mx-auto">
           <h1 className="text-2xl font-bold text-center mb-6">Posts Existentes</h1>
@@ -111,14 +120,13 @@ const ManagePosts: React.FC = () => {
               >
                 <h2 className="text-lg font-medium text-gray-800">{post.title}</h2>
                 <p className="text-sm text-gray-500">
-                  {post.subtitles.length} subtítulo(s)
+                  {post.subtitles.length} subtítulo(s) - Categorias: {post.categories?.join(", ") || "Nenhuma"}
                 </p>
               </li>
             ))}
           </ul>
         </div>
       ) : (
-        // Edição do Post Selecionado
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -128,60 +136,63 @@ const ManagePosts: React.FC = () => {
         >
           <h1 className="text-2xl font-bold text-gray-800 mb-6">Editar Post</h1>
 
-          {/* Título */}
           <div className="mb-6">
-            <label htmlFor="postTitle" className="block mb-2 text-gray-700 font-medium">
-              Título da Publicação
-            </label>
+            <label className="block mb-2 text-gray-700 font-medium">Título da Publicação</label>
             <input
               type="text"
-              id="postTitle"
               value={selectedPost.title}
               onChange={(e) => handleChange("title", e.target.value)}
-              placeholder="Digite o título da publicação"
               className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Subtítulos e Conteúdo */}
+          {/* Categorias */}
+          <div className="mb-6">
+            <label className="block mb-2 text-gray-700 font-medium">Categorias</label>
+            <ul className="flex flex-wrap gap-4">
+              {CATEGORIES.map((category) => (
+                <li key={category}>
+                  <button
+                    type="button"
+                    className={`border border-gray-300 rounded-md p-3 transition ${
+                      selectedPost.categories.includes(category) ? "bg-corPrimaria text-white" : "text-gray-700 hover:bg-corPrimaria hover:text-white"
+                    }`}
+                    onClick={() => handleCategoryToggle(category)}
+                  >
+                    {category}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {selectedPost.subtitles.map((item, index) => (
             <div key={item.id} className="mb-6">
-              <label htmlFor={`subtitle-${item.id}`} className="block mb-2 text-gray-700 font-medium">
-                Subtítulo {index + 1}
-              </label>
+              <label className="block mb-2 text-gray-700 font-medium">Subtítulo {index + 1}</label>
               <input
                 type="text"
                 value={item.subtitle}
                 onChange={(e) => handleSubtitleChange(item.id, "subtitle", e.target.value)}
-                id={`subtitle-${item.id}`}
-                placeholder="Digite o subtítulo"
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-corPrimaria"
               />
               <textarea
                 value={item.content}
                 onChange={(e) => handleSubtitleChange(item.id, "content", e.target.value)}
-                placeholder="Digite o conteúdo"
-                className="w-full border border-gray-300 rounded-md p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-corPrimaria"
               />
             </div>
           ))}
 
-          {/* Imagem */}
           <div className="mb-6">
-            <label htmlFor="postImage" className="block mb-2 text-gray-700 font-medium">
-              Imagem
-            </label>
+            <label className="block mb-2 text-gray-700 font-medium">Imagem</label>
             <input
               type="text"
-              id="postImage"
               value={selectedPost.image || ""}
               onChange={(e) => handleChange("image", e.target.value)}
-              placeholder="URL da imagem"
-              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-corPrimaria"
             />
           </div>
 
-          {/* Botões */}
           <div className="flex justify-between mt-6">
             <button
               type="button"
@@ -190,10 +201,7 @@ const ManagePosts: React.FC = () => {
             >
               Cancelar
             </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            >
+            <button type="submit" className="px-4 py-2 bg-corPrimaria text-white rounded-md">
               Salvar
             </button>
           </div>
@@ -204,5 +212,3 @@ const ManagePosts: React.FC = () => {
 };
 
 export default ManagePosts;
-
-

@@ -19,12 +19,14 @@ interface Post {
   image: string | null;
   subtitles: Subtitle[];
   createdAt: string;
+  selectedCategories: string[];
 }
 
 const CartoesBlog2: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [active, setActive] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -70,6 +72,10 @@ const CartoesBlog2: React.FC = () => {
 
   useOutsideClick(ref, () => setActive(null));
 
+  const filteredPosts = selectedCategory
+    ? posts.filter((post) => post.selectedCategories.includes(selectedCategory))
+    : posts;
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -88,7 +94,28 @@ const CartoesBlog2: React.FC = () => {
 
   return (
     <>
-      <div className="bg-white p-16">
+      <div className="bg-white p-4">
+        <ul className="mt-6 flex justify-center gap-6 mb-16">
+          {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(
+            (category) => (
+              <li key={category}>
+                <button
+                  type="button"
+                  className={`border border-gray-300 rounded-md p-3 transition ${
+                    selectedCategory === category
+                      ? "bg-corPrimaria text-white"
+                      : "text-gray-700 hover:bg-corPrimaria"
+                  }`}
+                  onClick={() =>
+                    setSelectedCategory((prev) => (prev === category ? null : category))
+                  }
+                >
+                  {category}
+                </button>
+              </li>
+            )
+          )}
+        </ul>
         <AnimatePresence>
           {active && (
             <motion.div
@@ -129,7 +156,7 @@ const CartoesBlog2: React.FC = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="text-white text-xs md:text-sm lg:text-base h-60 pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                      className="text-white text-xs md:text-sm lg:text-base h-60 pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400"
                     >
                       {active.subtitles[0]?.content || "Sem conteúdo disponível."}
                     </motion.div>
@@ -149,39 +176,15 @@ const CartoesBlog2: React.FC = () => {
         </AnimatePresence>
 
         <div className="mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <motion.div
               layoutId={`card-${post.id}-${id}`}
               key={post.id}
               onClick={() => setActive(post)}
-              className="h-[400px] p-4 flex flex-col bg-corPrimaria drop-shadow-lg shadow-2xl hover:bg-red-500 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+              className="h-[400px] p-4 flex flex-col bg-corPrimaria drop-shadow-lg shadow-2xl hover:bg-red-500 rounded-xl cursor-pointer"
             >
               <div className="flex gap-4 flex-col w-full h-full">
-                <motion.div layoutId={`image-${post.id}-${id}`}>
-                  {post.image && (
-                    <Image
-                      width={100}
-                      height={100}
-                      src={post.image}
-                      alt={post.title}
-                      className="h-48 w-full rounded-lg object-cover object-top"
-                    />
-                  )}
-                </motion.div>
-                <div className="justify-center items-start flex-1">
-                  <motion.h3
-                    layoutId={`title-${post.id}-${id}`}
-                    className="mb-8 font-medium text-white dark:text-white text-center md:text-left text-base"
-                  >
-                    {post.title}
-                  </motion.h3>
-                  <motion.p
-                    layoutId={`description-${post.id}-${id}`}
-                    className="text-white dark:text-white text-center md:text-left text-base"
-                  >
-                    {post.subtitles[0]?.subtitle || "Sem subtítulo."}
-                  </motion.p>
-                </div>
+                <motion.h3 className="text-white text-center">{post.title}</motion.h3>
               </div>
             </motion.div>
           ))}
@@ -192,9 +195,3 @@ const CartoesBlog2: React.FC = () => {
 };
 
 export default CartoesBlog2;
-
-
-
-
-
-

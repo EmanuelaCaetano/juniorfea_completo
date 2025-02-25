@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { use } from "react";
 import Image from "next/image";
 
 interface Subtitle {
@@ -19,26 +18,27 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) => {
-  const { id } = use(params);
+const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
+  const { id } = params; // Usando `params` diretamente
   const [post, setPost] = useState<Post | null>(null);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const isMounted = useRef(true);
   const router = useRouter();
 
   useEffect(() => {
-    let isMounted = true;
-    window.scrollTo(0, 0);
-    setPost(null);
-    setLoading(true);
+    // Marcar o componente como montado
+    isMounted.current = true;
 
     const fetchPosts = async () => {
+      setLoading(true);
+
       try {
         const postDoc = doc(db, "posts", id);
         const postSnapshot = await getDoc(postDoc);
 
-        if (isMounted && postSnapshot.exists()) {
+        if (isMounted.current && postSnapshot.exists()) {
           setPost({ id: postSnapshot.id, ...postSnapshot.data() } as Post);
         }
 
@@ -46,7 +46,7 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
         const q = query(postsCollection, orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
 
-        if (isMounted) {
+        if (isMounted.current) {
           const postsData = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -58,7 +58,7 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
       } catch (error) {
         console.error("Erro ao buscar posts:", error);
       } finally {
-        if (isMounted) {
+        if (isMounted.current) {
           setLoading(false);
         }
       }
@@ -67,7 +67,7 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
     fetchPosts();
 
     return () => {
-      isMounted = false;
+      isMounted.current = false;
     };
   }, [id]);
 
@@ -201,8 +201,3 @@ const PostDetails: React.FC<{ params: Promise<{ id: string }> }> = ({ params }) 
 };
 
 export default PostDetails;
-
-
-
-
-
