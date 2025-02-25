@@ -60,14 +60,14 @@ const CartoesBlog2: React.FC = () => {
       }
     }
 
-    if (active) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    // Ajusta o overflow do body conforme a exibição do modal
+    document.body.style.overflow = active ? "hidden" : "auto";
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "auto";
+    };
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
@@ -93,41 +93,47 @@ const CartoesBlog2: React.FC = () => {
   }
 
   return (
-    <>
-      <div className="bg-white p-4">
-        <ul className="mt-6 flex justify-center gap-6 mb-16">
-          {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(
-            (category) => (
-              <li key={category}>
-                <button
-                  type="button"
-                  className={`border border-gray-300 rounded-md p-3 transition ${
-                    selectedCategory === category
-                      ? "bg-corPrimaria text-white"
-                      : "text-gray-700 hover:bg-corPrimaria"
-                  }`}
-                  onClick={() =>
-                    setSelectedCategory((prev) => (prev === category ? null : category))
-                  }
-                >
-                  {category}
-                </button>
-              </li>
-            )
-          )}
-        </ul>
-        <AnimatePresence>
-          {active && (
+    <div className="bg-white p-4">
+      {/* Filtros de categoria */}
+      <ul className="mt-6 flex justify-center gap-6 mb-16">
+        {[
+          "Estratégia",
+          "Marketing",
+          "Vendas",
+          "Finanças",
+          "Recursos Humanos",
+          "Empreendedorismo",
+        ].map((category) => (
+          <li key={category}>
+            <button
+              type="button"
+              className={`border border-gray-300 rounded-md p-3 transition ${
+                selectedCategory === category
+                  ? "bg-corPrimaria text-white"
+                  : "text-gray-700 hover:bg-corPrimaria"
+              }`}
+              onClick={() =>
+                setSelectedCategory((prev) =>
+                  prev === category ? null : category
+                )
+              }
+            >
+              {category}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {/* Modal com animações */}
+      <AnimatePresence>
+        {active && (
+          <>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/20 h-full w-full z-10"
             />
-          )}
-        </AnimatePresence>
-        <AnimatePresence>
-          {active ? (
             <div className="fixed inset-0 grid place-items-center z-[100]">
               <motion.div
                 layoutId={`card-${active.id}-${id}`}
@@ -164,7 +170,11 @@ const CartoesBlog2: React.FC = () => {
                   <div className="flex flex-col justify-between items-center p-4">
                     <button
                       className="w-60 px-4 py-3 text-center text-sm rounded-lg font-bold bg-corPrimaria text-white"
-                      onClick={() => router.push(`/blog/${active.id}`)}
+                      onClick={() => {
+                        // Fecha o modal antes de navegar
+                        setActive(null);
+                        router.push(`/blog/${active.id}`);
+                      }}
                     >
                       Leia Mais
                     </button>
@@ -172,26 +182,28 @@ const CartoesBlog2: React.FC = () => {
                 </div>
               </motion.div>
             </div>
-          ) : null}
-        </AnimatePresence>
+          </>
+        )}
+      </AnimatePresence>
 
-        <div className="mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {filteredPosts.map((post) => (
-            <motion.div
-              layoutId={`card-${post.id}-${id}`}
-              key={post.id}
-              onClick={() => setActive(post)}
-              className="h-[400px] p-4 flex flex-col bg-corPrimaria drop-shadow-lg shadow-2xl hover:bg-red-500 rounded-xl cursor-pointer"
-            >
-              <div className="flex gap-4 flex-col w-full h-full">
-                <motion.h3 className="text-white text-center">{post.title}</motion.h3>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Lista de cards */}
+      <div className="mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {filteredPosts.map((post) => (
+          <motion.div
+            layoutId={`card-${post.id}-${id}`}
+            key={post.id}
+            onClick={() => setActive(post)}
+            className="h-[400px] p-4 flex flex-col bg-corPrimaria drop-shadow-lg shadow-2xl hover:bg-red-500 rounded-xl cursor-pointer"
+          >
+            <div className="flex gap-4 flex-col w-full h-full">
+              <motion.h3 className="text-white text-center">{post.title}</motion.h3>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 
 export default CartoesBlog2;
+

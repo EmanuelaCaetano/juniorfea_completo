@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import  db  from "../../utils/firestore";
+import db from "../../utils/firestore";
 import { collection, addDoc } from "firebase/firestore";
 
 const AddPost: React.FC = () => {
   const [title, setTitle] = useState<string>(""); // Título do post
   const [previa, setPrevia] = useState<string>("");
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);// Categorias do post
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Categorias do post
   const [image, setImage] = useState<string | null>(null); // Imagem carregada
-  const [subtitles, setSubtitles] = useState<{ id: number; subtitle: string; content: string }[]>([
-    { id: 1, subtitle: "", content: "" },
-  ]); // Subtítulos e conteúdos
+  const [subtitles, setSubtitles] = useState<
+    { id: number; subtitle: string; content: string }[]
+  >([{ id: 1, subtitle: "", content: "" }]); // Subtítulos e conteúdos
 
   // Função para carregar a imagem
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,14 +28,13 @@ const AddPost: React.FC = () => {
   const handleCategoryToggle = (category: string) => {
     setSelectedCategories((prevCategories) => {
       const newCategories = prevCategories.includes(category)
-        ? prevCategories.filter((c) => c !== category) // Remove se já estiver
-        : [...prevCategories, category]; // Adiciona se ainda não estiver
-  
-      console.log("Categorias selecionadas:", newCategories); // Depuração
-      return newCategories; // Retorna o novo estado atualizado
+        ? prevCategories.filter((c) => c !== category)
+        : [...prevCategories, category];
+
+      console.log("Categorias selecionadas:", newCategories);
+      return newCategories;
     });
   };
-  
 
   // Função para adicionar um novo subtítulo
   const addSubtitle = () => {
@@ -44,16 +43,28 @@ const AddPost: React.FC = () => {
   };
 
   // Função para atualizar os valores dos subtítulos
-  const handleSubtitleChange = (id: number, field: "subtitle" | "content", value: string) => {
+  const handleSubtitleChange = (
+    id: number,
+    field: "subtitle" | "content",
+    value: string
+  ) => {
     setSubtitles(
-      subtitles.map((item) => (item.id === id ? { ...item, [field]: value } : item))
+      subtitles.map((item) =>
+        item.id === id ? { ...item, [field]: value } : item
+      )
     );
   };
 
   // Função para salvar os dados no Firebase
-<<<<<<< HEAD
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    // Validação: verificar se pelo menos uma categoria foi selecionada
+    if (selectedCategories.length === 0) {
+      alert("Por favor, selecione pelo menos uma categoria antes de salvar.");
+      return; // Impede o envio do formulário
+    }
+
     try {
       await addDoc(collection(db, "posts"), {
         title,
@@ -64,46 +75,18 @@ const AddPost: React.FC = () => {
         createdAt: new Date(),
       });
       alert("Post adicionado com sucesso!");
+      // Resetar os campos do formulário
       setTitle("");
-      setPrevia("")
+      setPrevia("");
       setImage(null);
-      setSubtitles([{ id: 1, subtitle: "", content: "" }]); // Reset dos campos
+      setSelectedCategories([]);
+      setSubtitles([{ id: 1, subtitle: "", content: "" }]);
     } catch (error) {
       console.error("Erro ao adicionar post: ", error);
       alert("Erro ao adicionar post.");
     }
   };
-=======
-const handleSubmit = async (event: React.FormEvent) => {
-  event.preventDefault();
->>>>>>> a5049b94a45e306bbb6e0274e68e1c3d12cb8fa9
 
-  // Verifica se o selectedCategories está vazio
-  if (selectedCategories.length === 0) {
-    alert("Por favor, selecione pelo menos uma categoria antes de salvar.");
-    return; // Impede o envio do formulário
-  }
-
-  try {
-    await addDoc(collection(db, "posts"), {
-      title,
-      image,
-      subtitles,
-      selectedCategories, // Salvar categorias
-      createdAt: new Date(),
-    });
-    alert("Post adicionado com sucesso!");
-
-    // Resetar os campos do formulário
-    setTitle("");
-    setImage(null);
-    setSelectedCategories([]); // Reset das categorias
-    setSubtitles([{ id: 1, subtitle: "", content: "" }]); // Reset dos campos
-  } catch (error) {
-    console.error("Erro ao adicionar post: ", error);
-    alert("Erro ao adicionar post.");
-  }
-};
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50">
       <form
@@ -112,7 +95,10 @@ const handleSubmit = async (event: React.FormEvent) => {
       >
         {/* Título */}
         <div className="mb-6">
-          <label htmlFor="postTitle" className="block mb-2 text-gray-700 font-medium">
+          <label
+            htmlFor="postTitle"
+            className="block mb-2 text-gray-700 font-medium"
+          >
             Título da Publicação
           </label>
           <input
@@ -125,24 +111,28 @@ const handleSubmit = async (event: React.FormEvent) => {
           />
         </div>
 
-        {/* Título */}
+        {/* Previa para o cartão */}
         <div className="mb-6">
-          <label htmlFor="posPrevia" className="block mb-2 text-gray-700 font-medium">
-            Previa para o cartão
+          <label
+            htmlFor="previa"
+            className="block mb-2 text-gray-700 font-medium"
+          >
+            Prévia para o cartão
           </label>
           <textarea
-            
-            id="posrPrevia"
+            id="previa"
             value={previa}
             onChange={(e) => setPrevia(e.target.value)}
-            placeholder="Digite a preva da publicação"
+            placeholder="Digite a prévia da publicação"
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         {/* Imagem */}
         <div className="mb-6">
-          <label className="block mb-2 text-gray-700 font-medium">Imagem da Publicação</label>
+          <label className="block mb-2 text-gray-700 font-medium">
+            Imagem da Publicação
+          </label>
           <div className="relative border border-gray-300 rounded-md h-52 flex items-center justify-center bg-gray-100">
             {image ? (
               <img
@@ -169,50 +159,69 @@ const handleSubmit = async (event: React.FormEvent) => {
           </div>
         </div>
 
-        <div className=" mb-6">
-        <label className="block mb-6 text-gray-700 font-medium">Categoria</label>
+        {/* Categorias */}
+        <div className="mb-6">
+          <label className="block mb-6 text-gray-700 font-medium">
+            Categoria
+          </label>
           <ul className="flex gap-6">
-          {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(
-            (category) => (
+            {[
+              "Estratégia",
+              "Marketing",
+              "Vendas",
+              "Finanças",
+              "Recursos Humanos",
+              "Empreendedorismo",
+            ].map((category) => (
               <li key={category}>
                 <button
                   type="button"
                   className={`border border-gray-300 rounded-md p-3 transition ${
-                  selectedCategories.includes(category)
-                  ? "bg-corPrimaria text-white"
-                  : "text-gray-700 hover:bg-corPrimaria"
+                    selectedCategories.includes(category)
+                      ? "bg-corPrimaria text-white"
+                      : "text-gray-700 hover:bg-corPrimaria"
                   }`}
                   onClick={() => handleCategoryToggle(category)}
-                  >
+                >
                   {category}
-                  </button>
+                </button>
               </li>
-          ))}
+            ))}
           </ul>
         </div>
 
         {/* Subtítulos e Conteúdo */}
         {subtitles.map((item, index) => (
           <div key={item.id} className="mb-6">
-            <label htmlFor={`subtitle-${item.id}`} className="block mb-2 text-gray-700 font-medium">
+            <label
+              htmlFor={`subtitle-${item.id}`}
+              className="block mb-2 text-gray-700 font-medium"
+            >
               Subtítulo {index + 1}
             </label>
             <input
               type="text"
               id={`subtitle-${item.id}`}
               value={item.subtitle}
-              onChange={(e) => handleSubtitleChange(item.id, "subtitle", e.target.value)}
+              onChange={(e) =>
+                handleSubtitleChange(item.id, "subtitle", e.target.value)
+              }
               placeholder={`Digite o subtítulo ${index + 1}`}
               className="w-full border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <label htmlFor={`content-${item.id}`} className="block mb-2 text-gray-700 font-medium">
+            <label
+              htmlFor={`content-${item.id}`}
+              className="block mb-2 text-gray-700 font-medium"
+            >
               Conteúdo {index + 1}
             </label>
             <textarea
               id={`content-${item.id}`}
               value={item.content}
-              onChange={(e) => handleSubtitleChange(item.id, "content", e.target.value)}
+              onChange={(e) =>
+                handleSubtitleChange(item.id, "content", e.target.value)
+              }
               placeholder={`Digite o conteúdo ${index + 1}`}
               className="w-full min-h-64 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             ></textarea>
@@ -221,15 +230,14 @@ const handleSubmit = async (event: React.FormEvent) => {
 
         {/* Adicionar Subtítulo */}
         <div className="mb-6">
-        <button
-        type="button"
-        onClick={addSubtitle}
-        className="bg-white text-red-500 border-2 border-red-500 px-4 py-2 rounded-md hover:bg-gray-100 hover:text-red-700 transition"
-        >
-        Adicionar Subtítulo
-        </button>
+          <button
+            type="button"
+            onClick={addSubtitle}
+            className="bg-white text-red-500 border-2 border-red-500 px-4 py-2 rounded-md hover:bg-gray-100 hover:text-red-700 transition"
+          >
+            Adicionar Subtítulo
+          </button>
         </div>
-
 
         {/* Botão para Salvar */}
         <div className="mt-6">
@@ -246,4 +254,5 @@ const handleSubmit = async (event: React.FormEvent) => {
 };
 
 export default AddPost;
+
 
