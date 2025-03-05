@@ -1,4 +1,3 @@
-import { FC } from "react";
 import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import Image from "next/image";
@@ -40,7 +39,8 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .slice(0, 3);
 };
 
-const PostDetails: FC<PageProps> = async ({ params }) => {
+// ❗ Remova FC<PageProps> e use uma função assíncrona diretamente
+export default async function PostDetails({ params }: PageProps) {
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
@@ -119,8 +119,4 @@ const PostDetails: FC<PageProps> = async ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default PostDetails;
-
-
+}
