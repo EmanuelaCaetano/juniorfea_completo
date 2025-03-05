@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const NoticiasParceiros: React.FC = () => {
   return (
@@ -12,8 +13,10 @@ const NoticiasParceiros: React.FC = () => {
           {/* Card 1 */}
           <div className="lg:ml-10 bg-white border-2 border-corPrimaria text-black p-30 rounded-lg shadow-md flex flex-col justify-between p-4">
             <div>
-              <img
+              <Image
                 src="/BFC.png"
+                width={150}
+                height={150}
                 alt="Botafogo-RP"
                 className="w-40 h-40 mb-6 mx-auto"
               />
@@ -33,8 +36,10 @@ const NoticiasParceiros: React.FC = () => {
           {/* Card 2 */}
           <div className="lg:mr-10 bg-white border-2 border-corPrimaria text-black p-30 rounded-lg shadow-md flex flex-col justify-between p-4">
             <div>
-              <img
+              <Image
                 src="/gandhi.png"
+                width={150}
+                height={150}
                 alt="Hospital Mahatma Gandhi"
                 className="w-50 h-44 mb-6 mx-auto"
               />

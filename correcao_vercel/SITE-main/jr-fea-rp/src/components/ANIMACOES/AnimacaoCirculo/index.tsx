@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export interface ElementosCirculo {
   titulo: string;
@@ -42,7 +43,7 @@ const AnimacaoCirculo = ({ elemento }: AnimacaoCirculoProps) => {
         animate={{ opacity: isHovered ? 1 : 0.6 }}
         transition={{ duration: 0.8 }}
         />
-        <img src={elemento.imagemUrl} alt={elemento.titulo} className="w-24 h-24" />
+        <Image src={elemento.imagemUrl} width={150} height={150} alt={elemento.titulo} className="w-24 h-24" />
 
       </motion.div>
           {/* Título fora do círculo que aumenta durante a animação */}

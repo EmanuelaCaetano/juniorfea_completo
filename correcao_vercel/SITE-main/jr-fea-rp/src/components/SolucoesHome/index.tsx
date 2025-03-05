@@ -8,8 +8,8 @@ export default function SolucoesHome() {
     {
       titulo: "Financeiro",
       items: ["Viabilidade Econômica", "Análise de Custos", "Estruturação Financeira"],
-      imagemUrl: "./cifraoVermelho.png",
-      imagemUrl2: "./cifraoBranco.png",
+      imagemUrl: "/cifraoVermelho.png",
+      imagemUrl2: "/cifraoBranco.png",
       link: '/ModeloSolucao',
       query: {
         titulo: "Financeiro",
@@ -28,8 +28,8 @@ export default function SolucoesHome() {
     {
       titulo: "Estratégia",
       items: ["Plano de Negócios", "Mapeamento de Processos", "Planejamento Estratégico"],
-      imagemUrl: "./alvoVermelho.png",
-      imagemUrl2: "./alvoBranco.png",
+      imagemUrl: "/alvoVermelho.png",
+      imagemUrl2: "/alvoBranco.png",
       link: '/ModeloSolucao',
       query: {
         titulo: "Estratégia",
@@ -48,8 +48,8 @@ export default function SolucoesHome() {
     {
       titulo: "Marketing",
       items: ["Plano de Marketing", "Estratégias de Marketing", "Marketing Verde"],
-      imagemUrl: "./marketingVermelho.png",
-      imagemUrl2: "./marketingBranco.png",
+      imagemUrl: "/marketingVermelho.png",
+      imagemUrl2: "/marketingBranco.png",
       link: '/ModeloSolucao',
       query: {
         titulo: "Marketing",
@@ -68,8 +68,8 @@ export default function SolucoesHome() {
     {
       titulo: "Pesquisa",
       items: ["Pesquisa de Mercado", "Pesquisa de Satisfação", "Cliente Oculto"],
-      imagemUrl: "./cameraVermelho.png",
-      imagemUrl2: "./cameraBranco.png",
+      imagemUrl: "/cameraVermelho.png",
+      imagemUrl2: "/cameraBranco.png",
       link: '/ModeloSolucao',
       query: {
         titulo: "Pesquisa",

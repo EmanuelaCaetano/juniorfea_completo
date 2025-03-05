@@ -1,5 +1,6 @@
 import React from 'react';
 import Marquee from '../ui/marquee';
+import Image from 'next/image';
 
 interface CardCaseProps {
   logo: string;
@@ -58,7 +59,7 @@ const CardCase: React.FC<CardCaseProps> = ({ logo, nps, challenge, solution }) =
     <div className="h-2000 border rounded-lg p-4 shadow-md flex flex-col justify-between min-w-[500px] mx-4 relative">
       {/* Header com Logo e NPS */}
       <div className="flex items-center justify-between mb-4">
-        <img src={logo} alt="Logo" className="h-12 w-auto" />
+        <Image src={logo} alt="Logo" width={48} height={48} className="h-12 w-auto" />
         <span className="text-xl font-bold text-gray-800">NPS {nps}</span>
       </div>
 

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import db from "../../utils/firestore";
 import { collection, addDoc } from "firebase/firestore";
+import Image from 'next/image';
 
 const AddPost: React.FC = () => {
   const [title, setTitle] = useState<string>(""); // Título do post
@@ -135,7 +136,7 @@ const AddPost: React.FC = () => {
           </label>
           <div className="relative border border-gray-300 rounded-md h-52 flex items-center justify-center bg-gray-100">
             {image ? (
-              <img
+              <Image
                 src={image}
                 alt="Imagem do Projeto"
                 className="h-full object-cover rounded-md"
