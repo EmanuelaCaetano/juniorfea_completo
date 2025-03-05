@@ -59,18 +59,20 @@ const ManagePosts: React.FC = () => {
     }
   };
 
-  const handleChange = (field: keyof Post, value: any) => {
+  const handleChange = (field: keyof Post, value: string) => { // Use string em vez de any
     if (!selectedPost) return;
     setSelectedPost({ ...selectedPost, [field]: value });
   };
+  
 
-  const handleSubtitleChange = (id: number, field: "subtitle" | "content", value: string) => {
+  const handleSubtitleChange = (id: number, field: "subtitle" | "content", value: string) => { // Tipo específico para value
     if (!selectedPost) return;
     const updatedSubtitles = selectedPost.subtitles.map((item) =>
       item.id === id ? { ...item, [field]: value } : item
     );
     setSelectedPost({ ...selectedPost, subtitles: updatedSubtitles });
   };
+  
 
   const handleCategoryToggle = (category: string) => {
     if (!selectedPost) return;

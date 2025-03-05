@@ -8,23 +8,26 @@ const Contagem = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const currentSection = sectionRef.current; // Captura o valor atual da ref
+    
+        if (!currentSection) return;
+    
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting) {
                     // Inicie a animação aqui
                 }
             },
-            { threshold: 0.5 } // Ativa a animação quando 50% do elemento estiver visível
+            { threshold: 0.5 }
         );
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
+    
+        observer.observe(currentSection);
+    
         return () => {
-            if (sectionRef.current) {
-                observer.unobserve(sectionRef.current);
-            }
+            observer.unobserve(currentSection);
         };
     }, []);
+    
 
     return (
         <div className="bg-gradient-to-r from-red-700 to-red-500 mb-12 md:mr-16 md:ml-16 py-10 md:py-16 px-6 md:px-12 rounded-none md:rounded-[80px] shadow-lg flex flex-col md:flex-row justify-center items-center gap-8 lg:gap-[120px]">
