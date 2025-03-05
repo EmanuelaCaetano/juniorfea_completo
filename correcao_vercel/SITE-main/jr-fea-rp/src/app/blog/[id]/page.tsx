@@ -16,7 +16,7 @@ interface Post {
 }
 
 interface PageProps {
-  params: { id: string } | Promise<{ id: string }>;
+  params: { id: string }; // ✅ Removido `Promise<{ id: string }>`
 }
 
 const fetchPost = async (id: string): Promise<Post | null> => {
@@ -39,8 +39,7 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .slice(0, 3);
 };
 
-// Remova FC<PageProps> e use uma função assíncrona diretamente
-export default async function PostDetails({ params }: PageProps) {
+export default async function PostDetails({ params }: PageProps) { // ✅ `params` já é síncrono
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
@@ -54,7 +53,6 @@ export default async function PostDetails({ params }: PageProps) {
 
   return (
     <div className="container mx-auto p-6">
-      {/* Data e navegação */}
       <div className="flex justify-between items-center mb-6">
         <p className="text-sm text-gray-500">Data da postagem</p>
         <div className="flex space-x-2">
@@ -67,14 +65,12 @@ export default async function PostDetails({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Imagem */}
       {post.image && (
         <div className="relative h-72 md:h-96 bg-gray-100 mb-6">
           <Image src={post.image} alt={post.title} layout="fill" objectFit="contain" className="rounded-lg" />
         </div>
       )}
 
-      {/* Índice e conteúdo */}
       <div className="flex">
         <div className="w-1/4 pr-4">
           <h2 className="text-lg font-semibold mb-2">Índice</h2>
@@ -98,7 +94,6 @@ export default async function PostDetails({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Mais notícias */}
       <div className="mt-12">
         <h2 className="text-2xl font-bold mb-6">Mais notícias</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
