@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import Image from "next/image";
@@ -14,6 +14,10 @@ interface Post {
   title: string;
   image: string | null;
   subtitles: Subtitle[];
+}
+
+interface PageProps {
+  params: { id: string };
 }
 
 const fetchPost = async (id: string): Promise<Post | null> => {
@@ -36,7 +40,7 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .slice(0, 3);
 };
 
-const PostDetails = async ({ params }: { params: { id: string } }) => {
+const PostDetails: FC<PageProps> = async ({ params }) => {
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
@@ -50,8 +54,18 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="container mx-auto p-6">
-      {/* Título */}
-      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      {/* Data e navegação */}
+      <div className="flex justify-between items-center mb-6">
+        <p className="text-sm text-gray-500">Data da postagem</p>
+        <div className="flex space-x-2">
+          <Link href={`/blog/${latestPosts[0]?.id || ""}`} className="p-2 border rounded-full bg-gray-100 hover:bg-gray-200">
+            ⬅
+          </Link>
+          <Link href={`/blog/${latestPosts[1]?.id || ""}`} className="p-2 border rounded-full bg-gray-100 hover:bg-gray-200">
+            ➡
+          </Link>
+        </div>
+      </div>
 
       {/* Imagem */}
       {post.image && (
@@ -108,4 +122,5 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
 };
 
 export default PostDetails;
+
 
