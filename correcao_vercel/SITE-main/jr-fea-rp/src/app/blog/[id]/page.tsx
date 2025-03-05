@@ -15,9 +15,9 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-interface PageProps {
-  params: { id: string };
-}
+//interface PageProps {
+//  params: { id: string };
+//}
 
 const fetchPost = async (id: string): Promise<Post | null> => {
   const postDoc = doc(db, "posts", id);

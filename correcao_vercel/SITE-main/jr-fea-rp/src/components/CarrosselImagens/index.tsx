@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,26 @@ export const CarrosselImages = ({
   const scrollerRef = useRef<HTMLUListElement>(null);
   const [start, setStart] = useState(false);
 
-  // Memoiza a função para evitar re-renderizações desnecessárias
+  const getDirection = useCallback(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty(
+        "--animation-direction",
+        direction === "left" ? "forwards" : "reverse"
+      );
+    }
+  }, [direction]); // `direction` deve ser uma dependência
+
+  const getSpeed = useCallback(() => {
+    if (containerRef.current) {
+      let duration = "40s";
+      if (speed === "fast") duration = "20s";
+      else if (speed === "slow") duration = "80s";
+
+      containerRef.current.style.setProperty("--animation-duration", duration);
+    }
+  }, [speed]); // `speed` deve ser uma dependência
+
+  // Memoiza a função `addAnimation`, incluindo `getDirection` e `getSpeed` como dependências
   const addAnimation = useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
@@ -35,30 +54,11 @@ export const CarrosselImages = ({
       getSpeed();
       setStart(true);
     }
-  }, []);
+  }, [getDirection, getSpeed]); // Agora `getDirection` e `getSpeed` estão corretamente referenciadas
 
   useEffect(() => {
     addAnimation();
   }, [addAnimation]);
-
-  const getDirection = () => {
-    if (containerRef.current) {
-      containerRef.current.style.setProperty(
-        "--animation-direction",
-        direction === "left" ? "forwards" : "reverse"
-      );
-    }
-  };
-
-  const getSpeed = () => {
-    if (containerRef.current) {
-      let duration = "40s";
-      if (speed === "fast") duration = "20s";
-      else if (speed === "slow") duration = "80s";
-
-      containerRef.current.style.setProperty("--animation-duration", duration);
-    }
-  };
 
   return (
     <div
@@ -91,4 +91,3 @@ export const CarrosselImages = ({
     </div>
   );
 };
-
