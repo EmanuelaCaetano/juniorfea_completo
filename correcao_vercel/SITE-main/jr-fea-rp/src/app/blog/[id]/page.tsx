@@ -16,7 +16,7 @@ interface Post {
 }
 
 interface PageProps {
-  params: { id: string };
+  params: { id: string } | Promise<{ id: string }>;
 }
 
 const fetchPost = async (id: string): Promise<Post | null> => {
@@ -39,7 +39,7 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .slice(0, 3);
 };
 
-// ❗ Remova FC<PageProps> e use uma função assíncrona diretamente
+// Remova FC<PageProps> e use uma função assíncrona diretamente
 export default async function PostDetails({ params }: PageProps) {
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
