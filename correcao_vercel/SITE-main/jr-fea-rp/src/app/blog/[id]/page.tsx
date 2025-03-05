@@ -16,7 +16,7 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-const fetchPost = async (id: string) => {
+const fetchPost = async (id: string): Promise<Post | null> => {
   const postDoc = doc(db, "posts", id);
   const postSnapshot = await getDoc(postDoc);
 
@@ -25,7 +25,7 @@ const fetchPost = async (id: string) => {
   return { id: postSnapshot.id, ...postSnapshot.data() } as Post;
 };
 
-const fetchLatestPosts = async (currentId: string) => {
+const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
   const postsCollection = collection(db, "posts");
   const q = query(postsCollection, orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
@@ -50,18 +50,8 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="container mx-auto p-6">
-      {/* Data e navegação */}
-      <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-gray-500">Data da postagem</p>
-        <div className="flex space-x-2">
-          <Link href={`/blog/${latestPosts[0]?.id || ""}`} className="p-2 border rounded-full bg-gray-100 hover:bg-gray-200">
-            ⬅
-          </Link>
-          <Link href={`/blog/${latestPosts[1]?.id || ""}`} className="p-2 border rounded-full bg-gray-100 hover:bg-gray-200">
-            ➡
-          </Link>
-        </div>
-      </div>
+      {/* Título */}
+      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
 
       {/* Imagem */}
       {post.image && (
@@ -118,3 +108,4 @@ const PostDetails = async ({ params }: { params: { id: string } }) => {
 };
 
 export default PostDetails;
+
