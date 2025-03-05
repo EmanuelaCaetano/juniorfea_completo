@@ -16,7 +16,7 @@ interface Post {
 }
 
 interface PageProps {
-  params: { id: string }; // ✅ Removido `Promise<{ id: string }>`
+  params: { id: string };
 }
 
 const fetchPost = async (id: string): Promise<Post | null> => {
@@ -39,7 +39,9 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .slice(0, 3);
 };
 
-export default async function PostDetails({ params }: PageProps) { // ✅ `params` já é síncrono
+export default async function PostDetails({ params }: { params: { id: string } }) {
+
+ // ✅ `params` já é síncrono
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
