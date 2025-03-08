@@ -3,6 +3,7 @@ import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/fires
 import Image from "next/image";
 import Link from "next/link";
 
+// 🔹 Tipagem dos dados
 interface Subtitle {
   subtitle: string;
   content: string;
@@ -15,33 +16,23 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-//interface PageProps {
-//  params: { id: string };
-//}
+interface PageProps {
+  params: { id: string };
+  searchParams?: Record<string, string | string[] | undefined>;
+}
 
-const fetchPost = async (id: string): Promise<Post | null> => {
-  const postDoc = doc(db, "posts", id);
-  const postSnapshot = await getDoc(postDoc);
-
-  if (!postSnapshot.exists()) return null;
-
-  return { id: postSnapshot.id, ...postSnapshot.data() } as Post;
-};
-
-const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
+// 🔹 Função que busca os posts e retorna os parâmetros
+export async function generateStaticParams() {
   const postsCollection = collection(db, "posts");
-  const q = query(postsCollection, orderBy("createdAt", "desc"));
-  const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(postsCollection);
 
-  return querySnapshot.docs
-    .map((doc) => ({ id: doc.id, ...doc.data() } as Post))
-    .filter((post) => post.id !== currentId)
-    .slice(0, 3);
-};
+  return querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+  }));
+}
 
+// 🔹 Página de detalhes do post
 export default async function PostDetails({ params }: { params: { id: string } }) {
-
- // ✅ `params` já é síncrono
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
@@ -117,3 +108,25 @@ export default async function PostDetails({ params }: { params: { id: string } }
     </div>
   );
 }
+
+// 🔹 Funções assíncronas para buscar os dados
+const fetchPost = async (id: string): Promise<Post | null> => {
+  const postDoc = doc(db, "posts", id);
+  const postSnapshot = await getDoc(postDoc);
+
+  if (!postSnapshot.exists()) return null;
+
+  return { id: postSnapshot.id, ...postSnapshot.data() } as Post;
+};
+
+const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
+  const postsCollection = collection(db, "posts");
+  const q = query(postsCollection, orderBy("createdAt", "desc"));
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot.docs
+    .map((doc) => ({ id: doc.id, ...doc.data() } as Post))
+    .filter((post) => post.id !== currentId)
+    .slice(0, 3);
+};
+

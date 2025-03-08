@@ -1,6 +1,6 @@
 import PersonInfoSection2 from "@/components/introducao_5"
 import CartoesBlog2 from "@/components/CartoesBlog2"
-
+import CartoesBlogNoticias from "@/components/CartoesBlogNoticias"
 
 export default function Home() {
  
@@ -15,8 +15,9 @@ export default function Home() {
      
         {/*<CarroselNoticias noticias={noticias} />*/}
       </div>
-      <div className="bg-gradient-to-b from-zinc-200">
-        <h2 className=' pl-8 py-6 sm:text-3x md:text-3xl font-light'>Navegue em Nosso Blog</h2>
+      <div className="py-8">
+        
+        <CartoesBlogNoticias/>
         <hr className="w-11/12 border-t border-black mx-auto"></hr>
         {/* <ul className="mt-6 flex justify-center gap-6">
           {["Estratégia", "Marketing", "Vendas", "Finanças", "Recursos Humanos", "Empreendedorismo"].map(

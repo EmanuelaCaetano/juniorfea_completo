@@ -136,7 +136,7 @@ const AddPost: React.FC = () => {
           </label>
           <div className="relative border border-gray-300 rounded-md h-52 flex items-center justify-center bg-gray-100">
             {image ? (
-              <Image
+              <img
                 src={image}
                 alt="Imagem do Projeto"
                 className="h-full object-cover rounded-md"

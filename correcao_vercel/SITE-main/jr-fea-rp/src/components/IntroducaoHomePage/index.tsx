@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 //import LetterPullup from "@/components/ANIMACOES/letterPullup"
 import LetterPullup from "@/components/ui/letter-pullup"
+import { AnimatePresence } from 'framer-motion';
 
 interface IntroducaoProps {
   imgPath: string;
@@ -42,10 +43,32 @@ const IntroducaoHomePage: React.FC<IntroducaoProps> = ({ imgPath, subTitle, cont
               <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold sm:font-semibold md:font-medium lg:font-normal xl:font-light">
                 {context}
               </p>
-            </div>
-          </div>
-        </motion.div>
+              {/* Botões */}
+      <div className="w-full sm:w-auto flex justify-center z-10 pb-4 sm:pb-0">
+        <AnimatePresence>
+          {/*<Link href="/contato">
+            <button className="px-8 py-2 rounded-md bg-white text-red-500 font-bold transition border-white duration-200 hover:bg-black hover:text-white-500 border-2 border-transparent hover:border-red-500">
+              Saiba Mais
+            </button>
+          </Link>*/}
+          <a
+            href="/contato"
+            className="bg-white text-black px-6 py-3 md:px-8 md:py-4 rounded-3xl mt-8 md:mt-16 font-bold drop-shadow-lg hover:bg-corPrimaria hover:text-white hover:scale-110 transition duration-200 ease-in-out"
+          >
+            Faça um Diagnóstico Gratuito!
+          </a>
+        </AnimatePresence>
       </div>
+            </div>
+            
+          </div>
+
+          
+        </motion.div>
+      
+      
+      </div>
+
     </>
   );
 };
