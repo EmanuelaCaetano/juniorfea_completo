@@ -18,8 +18,13 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
-  const { id } = params; // Usando `params` diretamente
+interface PostDetailsProps {
+  params: { id: string };
+}
+
+// Componente corrigido
+const PostDetails: React.FC<PostDetailsProps> = ({ params }) => {
+  const id = params?.id; // Corrige o acesso a params.id
   const [post, setPost] = useState<Post | null>(null);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -28,7 +33,6 @@ const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Marcar o componente como montado
     isMounted.current = true;
 
     const fetchPosts = async () => {
@@ -64,7 +68,9 @@ const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
       }
     };
 
-    fetchPosts();
+    if (id) {
+      fetchPosts();
+    }
 
     return () => {
       isMounted.current = false;
