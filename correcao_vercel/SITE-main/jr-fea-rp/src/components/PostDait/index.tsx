@@ -21,7 +21,7 @@ const PostDetails = ({ id }: { id: string }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  
 
   // Busca os dados dos posts
   useEffect(() => {
