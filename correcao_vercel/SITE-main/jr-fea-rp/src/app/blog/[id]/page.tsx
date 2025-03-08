@@ -2,6 +2,7 @@ import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 
 // 🔹 Tipagem dos dados
 interface Subtitle {
@@ -16,10 +17,9 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-//interface PageProps {
-//  params: { id: string };
-//  searchParams?: Record<string, string | string[] | undefined>;
-//}
+interface PageProps {
+  params: { id: string };
+}
 
 // 🔹 Função que busca os posts e retorna os parâmetros
 export async function generateStaticParams() {
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 }
 
 // 🔹 Página de detalhes do post
-export default async function PostDetails({ params }: { params: { id: string } }) {
+const PostDetails: FC<PageProps> = async ({ params }) => {
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
@@ -86,28 +86,11 @@ export default async function PostDetails({ params }: { params: { id: string } }
           ))}
         </div>
       </div>
-
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Mais notícias</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {latestPosts.map((latestPost) => (
-            <Link key={latestPost.id} href={`/blog/${latestPost.id}`} className="cursor-pointer border border-gray-300 rounded-lg shadow-lg overflow-hidden bg-white">
-              {latestPost.image && (
-                <div className="relative h-32 bg-gray-100">
-                  <Image src={latestPost.image} alt={latestPost.title} layout="fill" objectFit="cover" />
-                </div>
-              )}
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">{latestPost.title}</h3>
-                <p className="text-gray-600 mt-2 text-sm">{latestPost.subtitles[0]?.content.substring(0, 100)}...</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
     </div>
   );
-}
+};
+
+export default PostDetails;
 
 // 🔹 Funções assíncronas para buscar os dados
 const fetchPost = async (id: string): Promise<Post | null> => {
@@ -129,4 +112,3 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .filter((post) => post.id !== currentId)
     .slice(0, 3);
 };
-
