@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import db from "../../utils/firestore";
 import { collection, addDoc } from "firebase/firestore";
-import Image from 'next/image';
+//import Image from 'next/image';
 
 const AddPost: React.FC = () => {
   const [title, setTitle] = useState<string>(""); // Título do post

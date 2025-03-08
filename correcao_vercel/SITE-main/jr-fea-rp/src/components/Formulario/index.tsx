@@ -43,7 +43,8 @@ const Formulario: React.FC = () => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length]);
+  
 
   const { imageSrc, text } = slides[currentIndex];
 
