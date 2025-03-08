@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+//import  useRouter  from "next/navigation";
 import Image from "next/image";
 import { getPostData } from "@/app/blog/[id]/page"; // Importa a função do servidor
 
@@ -21,7 +21,7 @@ const PostDetails = ({ id }: { id: string }) => {
   const [post, setPost] = useState<Post | null>(null);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
-  
+  //const router = useRouter();
 
   // Busca os dados dos posts
   useEffect(() => {
