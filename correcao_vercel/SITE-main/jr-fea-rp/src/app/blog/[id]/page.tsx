@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 
 interface Subtitle {
