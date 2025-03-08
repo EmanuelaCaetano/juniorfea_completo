@@ -16,10 +16,10 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-interface PageProps {
-  params: { id: string };
-  searchParams?: Record<string, string | string[] | undefined>;
-}
+//interface PageProps {
+//  params: { id: string };
+//  searchParams?: Record<string, string | string[] | undefined>;
+//}
 
 // 🔹 Função que busca os posts e retorna os parâmetros
 export async function generateStaticParams() {
