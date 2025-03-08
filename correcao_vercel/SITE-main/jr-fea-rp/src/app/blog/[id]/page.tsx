@@ -22,11 +22,11 @@ const PostDetails = () => {
   const params = useParams();
   const id = params?.id as string;
   const [post, setPost] = useState<Post | null>(null);
-  const [latestPosts, setLatestPosts] = useState<Post[]>([]);
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  //const [latestPosts, setLatestPosts] = useState<Post[]>([]);
+  //const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const isMounted = useRef(true);
-  const router = useRouter();
+  //const router = useRouter();
 
   useEffect(() => {
     isMounted.current = true;
