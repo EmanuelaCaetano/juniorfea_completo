@@ -5,6 +5,7 @@ import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { PageProps } from "next";
 
 interface Subtitle {
   subtitle: string;
@@ -18,13 +19,8 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-interface PostDetailsProps {
-  params: { id: string };
-}
-
-// Componente corrigido
-const PostDetails: React.FC<PostDetailsProps> = ({ params }) => {
-  const id = params?.id; // Corrige o acesso a params.id
+const PostDetails: React.FC<PageProps> = ({ params }) => {
+  const id = params?.id as string; // Garante que o ID é uma string
   const [post, setPost] = useState<Post | null>(null);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
