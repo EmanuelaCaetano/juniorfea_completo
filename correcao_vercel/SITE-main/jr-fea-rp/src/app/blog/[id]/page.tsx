@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import db from "../../../utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 
 interface Subtitle {
@@ -18,8 +18,9 @@ interface Post {
   subtitles: Subtitle[];
 }
 
-const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
-  const { id } = params; // Usando `params` diretamente
+const PostDetails = () => {
+  const params = useParams();
+  const id = params?.id as string;
   const [post, setPost] = useState<Post | null>(null);
   const [latestPosts, setLatestPosts] = useState<Post[]>([]);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -28,13 +29,12 @@ const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Marcar o componente como montado
     isMounted.current = true;
 
     const fetchPosts = async () => {
       setLoading(true);
-
       try {
+        if (!id) return;
         const postDoc = doc(db, "posts", id);
         const postSnapshot = await getDoc(postDoc);
 
@@ -71,20 +71,6 @@ const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
   }, [id]);
 
-  const navigatePost = (direction: "prev" | "next") => {
-    if (!allPosts.length) return;
-
-    const currentIndex = allPosts.findIndex((p) => p.id === id);
-    if (currentIndex === -1) return;
-
-    const newIndex =
-      direction === "prev"
-        ? (currentIndex - 1 + allPosts.length) % allPosts.length
-        : (currentIndex + 1) % allPosts.length;
-
-    router.push(`/blog/${allPosts[newIndex].id}`);
-  };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -103,99 +89,18 @@ const PostDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
 
   return (
     <div className="container mx-auto p-6">
-      {/* Data e navegação */}
-      <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-gray-500">Data da postagem</p>
-        <div className="flex space-x-2">
-          <button
-            className="p-2 border rounded-full bg-gray-100 hover:bg-gray-200"
-            onClick={() => navigatePost("prev")}
-          >
-            ⬅
-          </button>
-          <button
-            className="p-2 border rounded-full bg-gray-100 hover:bg-gray-200"
-            onClick={() => navigatePost("next")}
-          >
-            ➡
-          </button>
+      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      {post.image && (
+        <div className="relative h-72 md:h-96 bg-gray-100 mb-6">
+          <Image src={post.image} alt={post.title} fill objectFit="contain" className="rounded-lg" />
         </div>
-      </div>
-
-      {/* Imagem */}
-      <div className="relative h-72 md:h-96 bg-gray-100 mb-6">
-        {post.image && (
-          <Image
-            src={post.image}
-            alt={post.title}
-            layout="fill"
-            objectFit="contain"
-            className="rounded-lg"
-          />
-        )}
-      </div>
-
-      {/* Índice e conteúdo */}
-      <div className="flex">
-        <div className="w-1/4 pr-4">
-          <h2 className="text-lg font-semibold mb-2">Índice</h2>
-          <ul className="space-y-2">
-            {post.subtitles.map((subtitle, index) => (
-              <li key={index}>
-                <a
-                  href={`#subtitle-${index}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  {subtitle.subtitle}
-                </a>
-              </li>
-            ))}
-          </ul>
+      )}
+      {post.subtitles.map((subtitle, index) => (
+        <div key={index} className="mb-8">
+          <h3 className="text-2xl font-semibold text-gray-800">{subtitle.subtitle}</h3>
+          <p className="text-gray-600 mt-2">{subtitle.content}</p>
         </div>
-        <div className="w-3/4">
-          {post.subtitles.map((subtitle, index) => (
-            <div key={index} id={`subtitle-${index}`} className="mb-8">
-              <h3 className="text-2xl font-semibold text-gray-800">
-                {subtitle.subtitle}
-              </h3>
-              <p className="text-gray-600 mt-2">{subtitle.content}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Mais notícias */}
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Mais notícias</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {latestPosts.map((latestPost) => (
-            <div
-              key={latestPost.id}
-              onClick={() => router.push(`/blog/${latestPost.id}`)}
-              className="cursor-pointer border border-gray-300 rounded-lg shadow-lg overflow-hidden bg-white"
-            >
-              {latestPost.image && (
-                <div className="relative h-32 bg-gray-100">
-                  <Image
-                    src={latestPost.image}
-                    alt={latestPost.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-              )}
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {latestPost.title}
-                </h3>
-                <p className="text-gray-600 mt-2 text-sm">
-                  {latestPost.subtitles[0]?.content.substring(0, 100)}...
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
