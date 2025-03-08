@@ -1,8 +1,8 @@
-import db from "../../../utils/firestore";
+import { Metadata } from "next";
+import db from "@/utils/firestore";
 import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
 
 // 🔹 Tipagem dos dados
 interface Subtitle {
@@ -21,18 +21,24 @@ interface PageProps {
   params: { id: string };
 }
 
+// 🔹 SEO dinâmico
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post = await fetchPost(params.id);
+  return {
+    title: post ? post.title : "Post não encontrado",
+  };
+}
+
 // 🔹 Função que busca os posts e retorna os parâmetros
 export async function generateStaticParams() {
   const postsCollection = collection(db, "posts");
   const querySnapshot = await getDocs(postsCollection);
 
-  return querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-  }));
+  return querySnapshot.docs.map((doc) => ({ id: doc.id }));
 }
 
 // 🔹 Página de detalhes do post
-const PostDetails: FC<PageProps> = async ({ params }) => {
+export default async function PostDetails({ params }: PageProps) {
   const post = await fetchPost(params.id);
   const latestPosts = await fetchLatestPosts(params.id);
 
@@ -60,7 +66,7 @@ const PostDetails: FC<PageProps> = async ({ params }) => {
 
       {post.image && (
         <div className="relative h-72 md:h-96 bg-gray-100 mb-6">
-          <Image src={post.image} alt={post.title} layout="fill" objectFit="contain" className="rounded-lg" />
+          <Image src={post.image} alt={post.title} fill className="object-contain rounded-lg" />
         </div>
       )}
 
@@ -88,21 +94,17 @@ const PostDetails: FC<PageProps> = async ({ params }) => {
       </div>
     </div>
   );
-};
-
-export default PostDetails;
+}
 
 // 🔹 Funções assíncronas para buscar os dados
-const fetchPost = async (id: string): Promise<Post | null> => {
+async function fetchPost(id: string): Promise<Post | null> {
   const postDoc = doc(db, "posts", id);
   const postSnapshot = await getDoc(postDoc);
-
   if (!postSnapshot.exists()) return null;
-
   return { id: postSnapshot.id, ...postSnapshot.data() } as Post;
-};
+}
 
-const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
+async function fetchLatestPosts(currentId: string): Promise<Post[]> {
   const postsCollection = collection(db, "posts");
   const q = query(postsCollection, orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
@@ -111,4 +113,4 @@ const fetchLatestPosts = async (currentId: string): Promise<Post[]> => {
     .map((doc) => ({ id: doc.id, ...doc.data() } as Post))
     .filter((post) => post.id !== currentId)
     .slice(0, 3);
-};
+}
