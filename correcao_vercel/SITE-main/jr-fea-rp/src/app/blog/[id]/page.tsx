@@ -1,8 +1,18 @@
+import { getDoc, doc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import db from "@/utils/firestore";
-import { doc, getDoc, collection, query, orderBy, getDocs } from "firebase/firestore";
 import PostDetails from "@/components/PostDait";
+import { notFound } from "next/navigation";
 
-// Função para buscar os dados do post
+interface Params {
+  id: string;
+}
+
+export async function generateStaticParams() {
+  const postsCollection = collection(db, "posts");
+  const querySnapshot = await getDocs(postsCollection);
+  return querySnapshot.docs.map((doc) => ({ id: doc.id }));
+}
+
 const getPostData = async (id: string) => {
   const postDoc = doc(db, "posts", id);
   const postSnapshot = await getDoc(postDoc);
@@ -13,33 +23,49 @@ const getPostData = async (id: string) => {
 
   const postData = postSnapshot.data();
 
+  // 🔥 Corrigir o timestamp do Firestore (para evitar erro de serialização)
+  const formattedPost = {
+    ...postData,
+    id: postSnapshot.id,
+    createdAt: postData.createdAt
+      ? new Date(postData.createdAt.seconds * 1000).toISOString()
+      : null,
+  };
+
   const postsCollection = collection(db, "posts");
   const q = query(postsCollection, orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
 
-  const postsData = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const postsData = querySnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      ...data,
+      id: doc.id,
+      createdAt: data.createdAt
+        ? new Date(data.createdAt.seconds * 1000).toISOString()
+        : null,
+    };
+  });
 
   return {
-    post: { id: postSnapshot.id, ...postData },
+    post: formattedPost,
     latestPosts: postsData.filter((doc) => doc.id !== id).slice(0, 3),
   };
 };
 
-// Componente assíncrono no `app` directory
-const Page = async ({ params }: { params: { id: string } }) => {
-  // Busca os dados do post diretamente aqui
-  const postData = await getPostData(params.id);
+// 🔥 Garantindo que `Page` é um componente válido
+export default async function Page({ params }: { params: Params }) {
+  const { id } = params;
 
-  // Caso não exista o post, renderize uma mensagem
-  if (!postData) {
-    return <div>Post não encontrado</div>;
+  if (!id) {
+    return notFound(); // Se `id` for indefinido, retorna 404
   }
 
-  // Passe os dados para o componente `PostDetails`
-  return <PostDetails postData={postData} />;
-};
+  const postData = await getPostData(id);
 
-export default Page;
+  if (!postData) {
+    return notFound(); // Se o post não for encontrado, retorna 404
+  }
+
+  return <PostDetails postData={postData} />;
+}
