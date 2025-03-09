@@ -3,17 +3,22 @@ import db from "@/utils/firestore";
 import PostDetails from "@/components/PostDait";
 import { notFound } from "next/navigation";
 
-interface Params {
+interface Subtitle {
+  subtitle: string;
+  content: string;
+}
+
+interface Post {
   id: string;
+  title: string;
+  image: string | null;
+  subtitles: Subtitle[];
+  createdAt: string | null;
 }
 
-export async function generateStaticParams() {
-  const postsCollection = collection(db, "posts");
-  const querySnapshot = await getDocs(postsCollection);
-  return querySnapshot.docs.map((doc) => ({ id: doc.id }));
-}
+type Params = Promise<{ id: string }>;
 
-const getPostData = async (id: string) => {
+const getPostData = async (id: string): Promise<{ post: Post; latestPosts: Post[] } | null> => {
   const postDoc = doc(db, "posts", id);
   const postSnapshot = await getDoc(postDoc);
 
@@ -23,24 +28,29 @@ const getPostData = async (id: string) => {
 
   const postData = postSnapshot.data();
 
-  // 🔥 Corrigir o timestamp do Firestore (para evitar erro de serialização)
-  const formattedPost = {
-    ...postData,
+  // 🔥 Garantindo que `postData` tenha todas as propriedades de `Post`
+  const formattedPost: Post = {
     id: postSnapshot.id,
+    title: postData.title || "Sem título",
+    image: postData.image || null,
+    subtitles: postData.subtitles || [],
     createdAt: postData.createdAt
       ? new Date(postData.createdAt.seconds * 1000).toISOString()
       : null,
   };
 
+  // Pegando os posts mais recentes para recomendação
   const postsCollection = collection(db, "posts");
   const q = query(postsCollection, orderBy("createdAt", "desc"));
   const querySnapshot = await getDocs(q);
 
-  const postsData = querySnapshot.docs.map((doc) => {
+  const postsData: Post[] = querySnapshot.docs.map((doc) => {
     const data = doc.data();
     return {
-      ...data,
       id: doc.id,
+      title: data.title || "Sem título",
+      image: data.image || null,
+      subtitles: data.subtitles || [],
       createdAt: data.createdAt
         ? new Date(data.createdAt.seconds * 1000).toISOString()
         : null,
@@ -53,18 +63,19 @@ const getPostData = async (id: string) => {
   };
 };
 
-// 🔥 Garantindo que `Page` é um componente válido
+// ✅ 🔥 Corrigindo `params` com `await`
 export default async function Page({ params }: { params: Params }) {
-  const { id } = params;
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
 
   if (!id) {
-    return notFound(); // Se `id` for indefinido, retorna 404
+    return notFound();
   }
 
   const postData = await getPostData(id);
 
   if (!postData) {
-    return notFound(); // Se o post não for encontrado, retorna 404
+    return notFound();
   }
 
   return <PostDetails postData={postData} />;
