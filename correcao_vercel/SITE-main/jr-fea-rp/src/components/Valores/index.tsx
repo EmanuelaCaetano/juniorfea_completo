@@ -6,13 +6,14 @@ import { motion } from 'framer-motion'
 export default function Valores() {
   const [flippedStates, setFlippedStates] = useState(Array(5).fill(false)); // Estado para cada card
 
-  const handleMouseEnter = (index) => {
+  const handleMouseEnter = (index: number) => {
     setFlippedStates(prev => prev.map((state, i) => (i === index ? true : state)));
   };
-
-  const handleMouseLeave = (index) => {
+  
+  const handleMouseLeave = (index: number) => {
     setFlippedStates(prev => prev.map((state, i) => (i === index ? false : state)));
   };
+  
 
   const cardsData = [
     { frontContent: { title: 'Foco no Cliente', icon: Headphones }, backContent: { text: 'Colocamos as necessidades do cliente no centro, oferecendo soluções personalizadas e eficientes.' }},

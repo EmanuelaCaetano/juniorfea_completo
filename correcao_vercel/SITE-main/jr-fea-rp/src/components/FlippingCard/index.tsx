@@ -64,7 +64,14 @@ return (
         <h1 className="text-2xl font-medium drop-shadow-2xl pt-8">
           {frontContent.title}
         </h1>
-        <Image src={frontContent.image} alt="Imagem frontal" width={150} height={150} className="pt-20" />
+        <Image 
+          src={frontContent.image || "/foguete.png"} 
+          alt="Imagem frontal" 
+          width={150} 
+          height={150} 
+          className="pt-20" 
+        />
+
       </div>
 
       {/* Verso */}
@@ -75,7 +82,14 @@ return (
           transform: 'rotateY(180deg)',
         }}
       >
-        <Image src={backContent.image} alt="Imagem traseira" width={150} height={150} className="pt-4" />
+        <Image 
+          src={frontContent.image || "/foguete.png"} 
+          alt="Imagem frontal" 
+          width={150} 
+          height={150} 
+          className="pt-20" 
+        />
+
         <p className="text-corPrimaria pt-8 text-center">{backContent.text}</p>
       </div>
     </motion.div>
