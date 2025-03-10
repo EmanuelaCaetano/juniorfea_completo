@@ -74,6 +74,7 @@ const AddPost: React.FC = () => {
         image,
         subtitles,
         selectedCategories,
+        noticia,
         createdAt: new Date(),
       });
       alert("Post adicionado com sucesso!");

@@ -19,9 +19,7 @@ interface Slide {
 
 const CartoesBlogNoticias: React.FC = () => {
   const [slides, setSlides] = useState<Slide[]>([]);
-  //const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  //const [active, setActive] = useState<Post | null>(null);
   const [current, setCurrent] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -32,10 +30,11 @@ const CartoesBlogNoticias: React.FC = () => {
         const q = query(slidesCollection, orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
 
-        // Filtrar apenas os que têm "noticia" igual a "sim"
         const slidesData = querySnapshot.docs
           .map((doc) => ({ id: doc.id, ...doc.data() } as Slide))
           .filter((slide) => slide.noticia === "sim");
+          
+
 
         setSlides(slidesData);
       } catch (error) {
@@ -73,7 +72,7 @@ const CartoesBlogNoticias: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full h-[80vh] flex justify-center items-center overflow-hidden">
+    <div className="relative w-full h-[70vh] flex justify-center items-center overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -81,43 +80,46 @@ const CartoesBlogNoticias: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.6 }}
-          className="relative flex items-center justify-center w-full h-full bg-corPrimaria rounded-lg p-6 text-white"
+          className="relative flex flex-col md:flex-row items-center md:items-start w-full h-full bg-corPrimaria rounded-lg p-6 text-white"
         >
-          <div className="absolute left-8 md:left-16 top-1/2 transform -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px]">
-            <Image
-              src={slides[current].image}
-              alt={slides[current].title}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md shadow-lg"
-            />
+          {/* Imagem menor (lado esquerdo) */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            <div className="relative w-full max-w-[560px] max-h-[315px]">
+              <Image
+                src={slides[current].image}
+                alt={slides[current].title}
+                width={560}
+                height={315}
+                objectFit="contain"
+                className="rounded-md shadow-lg"
+              />
+            </div>
           </div>
-          <div className="ml-[280px] md:ml-[450px] max-w-[600px] text-left">
+
+          {/* Conteúdo (lado direito) */}
+          <div className="w-full md:w-1/2 mt-6 md:mt-0 md:pl-10 flex flex-col justify-center">
             <h2 className="text-2xl md:text-4xl font-bold">{slides[current].title}</h2>
             <p className="text-base md:text-lg mt-4">{slides[current].previa}</p>
             <button
-  onClick={() => {
-    router.push(`/blog/${slides[current].id}`);
-  }}
-  className="mt-6 inline-block bg-white text-corPrimaria px-6 py-3 rounded-md text-lg font-semibold transition hover:bg-gray-200"
->
-  Saiba Mais
-</button>
-
+              onClick={() => router.push(`/blog/${slides[current].id}`)}
+              className="mt-6 bg-white text-corPrimaria px-6 py-3 rounded-md text-lg font-semibold transition hover:bg-gray-200 self-start"
+            >
+              Saiba Mais
+            </button>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Botões de navegação */}
+      {/* Botões de navegação - Agora eles NÃO SOBREPOEM a imagem */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-4 md:p-6 rounded-full hover:bg-gray-800 transition"
+        className="absolute left-4 md:left-6 lg:left-10 top-1/2 transform -translate-y-1/2 bg-gray-100 text-black p-4 md:p-6 rounded-full hover:bg-gray-800 transition"
       >
         ◀
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-4 md:p-6 rounded-full hover:bg-gray-800 transition"
+        className="absolute right-4 md:right-6 lg:right-10 top-1/2 transform -translate-y-1/2 bg-gray-100 text-black p-4 md:p-6 rounded-full hover:bg-gray-800 transition"
       >
         ▶
       </button>
@@ -138,4 +140,3 @@ const CartoesBlogNoticias: React.FC = () => {
 };
 
 export default CartoesBlogNoticias;
-

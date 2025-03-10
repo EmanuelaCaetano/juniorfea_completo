@@ -16,6 +16,7 @@ interface Subtitle {
 interface Post {
   id: string;
   title: string;
+  previa: string;
   image: string | null;
   subtitles: Subtitle[];
   createdAt: string;
@@ -164,7 +165,7 @@ const CartoesBlog2: React.FC = () => {
                       exit={{ opacity: 0 }}
                       className="text-white text-xs md:text-sm lg:text-base h-60 pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400"
                     >
-                      {active.subtitles[0]?.content || "Sem conteúdo disponível."}
+                      {active.previa || "Sem conteúdo disponível."}
                     </motion.div>
                   </div>
                   <div className="flex flex-col justify-between items-center p-4">
@@ -186,21 +187,41 @@ const CartoesBlog2: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Lista de cards */}
       <div className="mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {filteredPosts.map((post) => (
-          <motion.div
-            layoutId={`card-${post.id}-${id}`}
-            key={post.id}
-            onClick={() => setActive(post)}
-            className="h-[400px] p-4 flex flex-col bg-corPrimaria drop-shadow-lg shadow-2xl hover:bg-red-500 rounded-xl cursor-pointer"
-          >
-            <div className="flex gap-4 flex-col w-full h-full">
-              <motion.h3 className="text-white text-center">{post.title}</motion.h3>
-            </div>
-          </motion.div>
-        ))}
+  {filteredPosts.map((post) => (
+    <motion.div
+      layoutId={`card-${post.id}-${id}`}
+      key={post.id}
+      onClick={() => setActive(post)}
+      className="h-[500px] p-4 flex flex-col bg-corPrimaria drop-shadow-lg shadow-2xl hover:bg-red-500 rounded-xl cursor-pointer transition-all"
+    >
+      {/* Imagem com proporção 16:9 */}
+      <div className="relative w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+      {post.image && (
+                    <Image
+                      priority
+                      width={500}
+                      height={500}
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-64 sm:rounded-lg object-cover object-top"
+                    />
+                  )}
       </div>
+
+      {/* Título */}
+      <motion.h3 className="text-white text-center text-lg font-bold mt-4">
+        {post.title}
+      </motion.h3>
+
+      {/* Prévia */}
+      <p className="text-white text-left text-sm mt-2 line-clamp-3">
+        {post.previa}
+      </p>
+    </motion.div>
+  ))}
+</div>
+
     </div>
   );
 };
