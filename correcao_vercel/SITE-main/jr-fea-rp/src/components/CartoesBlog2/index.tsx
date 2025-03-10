@@ -176,7 +176,7 @@ const CartoesBlog2: React.FC = () => {
                         router.push(`/blog/${active.id}`);
                       }}
                     >
-                      Leia Mais
+                      Saiba Mais
                     </button>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import db from "@/utils/firestore";
 import PostDetails from "@/components/PostDait";
 import { notFound } from "next/navigation";
 
+
 interface Subtitle {
   subtitle: string;
   content: string;
@@ -28,7 +29,6 @@ const getPostData = async (id: string): Promise<{ post: Post; latestPosts: Post[
 
   const postData = postSnapshot.data();
 
-  // 🔥 Garantindo que `postData` tenha todas as propriedades de `Post`
   const formattedPost: Post = {
     id: postSnapshot.id,
     title: postData.title || "Sem título",
@@ -63,7 +63,6 @@ const getPostData = async (id: string): Promise<{ post: Post; latestPosts: Post[
   };
 };
 
-// ✅ 🔥 Corrigindo `params` com `await`
 export default async function Page({ params }: { params: Params }) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
@@ -79,4 +78,5 @@ export default async function Page({ params }: { params: Params }) {
   }
 
   return <PostDetails postData={postData} />;
+
 }

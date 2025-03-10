@@ -1,42 +1,52 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import db from "../../utils/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 interface Slide {
+  id: string;
   title: string;
+  previa: string;
   description: string;
   image: string;
   link: string;
+  noticia: string;
 }
 
-const slides: Slide[] = [
-  {
-    title: "Marketing",
-    description:
-      "Entenda como funcionam os processos do seu negócio e aprenda a crescer em direção ao sucesso!",
-    image: "/marketing.jpg", // Substitua pelo caminho real da imagem
-    link: "/marketing",
-  },
-  {
-    title: "Vendas",
-    description:
-      "Descubra estratégias eficientes para alavancar suas vendas e conquistar mais clientes!",
-    image: "/vendas.jpg",
-    link: "/vendas",
-  },
-  {
-    title: "Empreendedorismo",
-    description:
-      "Saiba como transformar suas ideias em um negócio de sucesso com dicas essenciais!",
-    image: "/empreendedorismo.jpg",
-    link: "/empreendedorismo",
-  },
-];
-
 const CartoesBlogNoticias: React.FC = () => {
+  const [slides, setSlides] = useState<Slide[]>([]);
+  //const ref = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  //const [active, setActive] = useState<Post | null>(null);
   const [current, setCurrent] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const slidesCollection = collection(db, "posts");
+        const q = query(slidesCollection, orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(q);
+
+        // Filtrar apenas os que têm "noticia" igual a "sim"
+        const slidesData = querySnapshot.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() } as Slide))
+          .filter((slide) => slide.noticia === "sim");
+
+        setSlides(slidesData);
+      } catch (error) {
+        console.error("Erro ao buscar slides:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSlides();
+  }, []);
 
   const nextSlide = () => {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -46,9 +56,24 @@ const CartoesBlogNoticias: React.FC = () => {
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-lg text-gray-500">Carregando slides...</p>
+      </div>
+    );
+  }
+
+  if (slides.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-lg text-gray-500">Nenhuma notícia encontrada.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full h-[80vh] flex justify-center items-center overflow-hidden">
-      {/* Área do Carrossel */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -56,9 +81,8 @@ const CartoesBlogNoticias: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.6 }}
-          className="relative flex items-center justify-center w-full h-full bg-red-600 rounded-lg p-6 text-white"
+          className="relative flex items-center justify-center w-full h-full bg-corPrimaria rounded-lg p-6 text-white"
         >
-          {/* Imagem */}
           <div className="absolute left-8 md:left-16 top-1/2 transform -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px]">
             <Image
               src={slides[current].image}
@@ -68,22 +92,23 @@ const CartoesBlogNoticias: React.FC = () => {
               className="rounded-md shadow-lg"
             />
           </div>
-
-          {/* Texto */}
           <div className="ml-[280px] md:ml-[450px] max-w-[600px] text-left">
             <h2 className="text-2xl md:text-4xl font-bold">{slides[current].title}</h2>
-            <p className="text-base md:text-lg mt-4">{slides[current].description}</p>
-            <a
-              href={slides[current].link}
-              className="mt-6 inline-block bg-white text-red-600 px-6 py-3 rounded-md text-lg font-semibold transition hover:bg-gray-200"
-            >
-              Saiba Mais
-            </a>
+            <p className="text-base md:text-lg mt-4">{slides[current].previa}</p>
+            <button
+  onClick={() => {
+    router.push(`/blog/${slides[current].id}`);
+  }}
+  className="mt-6 inline-block bg-white text-corPrimaria px-6 py-3 rounded-md text-lg font-semibold transition hover:bg-gray-200"
+>
+  Saiba Mais
+</button>
+
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Botões de Navegação */}
+      {/* Botões de navegação */}
       <button
         onClick={prevSlide}
         className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-4 md:p-6 rounded-full hover:bg-gray-800 transition"
@@ -97,7 +122,7 @@ const CartoesBlogNoticias: React.FC = () => {
         ▶
       </button>
 
-      {/* Indicadores */}
+      {/* Indicadores de slide */}
       <div className="absolute bottom-4 flex gap-2">
         {slides.map((_, index) => (
           <div

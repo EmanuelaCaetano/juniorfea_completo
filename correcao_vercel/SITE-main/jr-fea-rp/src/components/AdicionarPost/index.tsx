@@ -7,6 +7,7 @@ import { collection, addDoc } from "firebase/firestore";
 const AddPost: React.FC = () => {
   const [title, setTitle] = useState<string>(""); // Título do post
   const [previa, setPrevia] = useState<string>("");
+  const [noticia, setNoticia] = useState<string>("não");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]); // Categorias do post
   const [image, setImage] = useState<string | null>(null); // Imagem carregada
   const [subtitles, setSubtitles] = useState<
@@ -189,6 +190,19 @@ const AddPost: React.FC = () => {
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Notícia */}
+        <div className="mb-6">
+          <label className="block mb-2 text-gray-700 font-medium">É uma notícia?</label>
+          <select
+            value={noticia}
+            onChange={(e) => setNoticia(e.target.value)}
+            className="w-full border border-gray-300 rounded-md p-2"
+          >
+            <option value="não">Não</option>
+            <option value="sim">Sim</option>
+          </select>
         </div>
 
         {/* Subtítulos e Conteúdo */}
